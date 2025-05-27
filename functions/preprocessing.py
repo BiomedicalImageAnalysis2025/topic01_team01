@@ -4,8 +4,8 @@ import os
 import numpy as np
 from PIL import Image
 
-    # Path to the dataset folder. os.getcwd() gets the current working directory.
-    # If The dataset folder is one level up from the current working directory,  use "../" before "datasets".
+# Path to the dataset folder. os.getcwd() gets the current working directory (in our case main.ipynb).
+# If The dataset folder is one level up from the current working directory,  use "../" before "datasets".
 folder_path = os.path.join(os.getcwd(), "datasets")
 
 # Create a dictionary to group images by individual.
@@ -42,9 +42,12 @@ for img_file in sorted(os.listdir(folder_path)):
         grouped_images[subject_id] = []
     grouped_images[subject_id].append(flat_image)  
 
+# Set a random seed for reproducibility (output is the same every time).
+np.random.seed(165)
+
 # Prepare separate lists for training and testing images.
-final_train = []
-final_test = []
+train_data = []
+test_data = []
 
 # For each individual, randomly assign 8 images to training and 3 to testing.
 for subject, images in grouped_images.items():
@@ -66,39 +69,38 @@ for subject, images in grouped_images.items():
     for image, label in zip(images, labels):
         # distribute images to training and testing sets based on the label which is randomly assigned.
         if label == 'train':
-            final_train.append(image)
+            train_data.append(image)
         else:
-            final_test.append(image)
+            test_data.append(image)
 
 # output you see in main.ipynb
-print(f"Total training images: {len(final_train)}")
-print(f"Total testing images: {len(final_test)}")
+print(f"Total training images: {len(train_data)}")
+print(f"Total testing images: {len(test_data)}")
 
 # Now Normalization & Standardization is performed
 
 # Convert lists to NumPy arrays.
-train_data = np.array(final_train)  # Shape: (n_train, num_features)
-test_data  = np.array(final_test)   # Shape: (n_test, num_features)
+train_arr = np.array(train_data)  # Shape: (n_train, num_features)
+test_arr = np.array(test_data)   # Shape: (n_test, num_features)
 
 # Compute global mean and standard deviation from training data only.
-global_mean = np.mean(train_data, axis=0)
-global_std  = np.std(train_data, axis=0)
+global_mean = np.mean(train_arr, axis=0)
+global_std  = np.std(train_arr, axis=0)
 
 # To avoid division by zero, replace any zeros in the std vector.
 global_std[global_std == 0] = 1e-8
 
 # Standardize the training set.
-train_standardized = (train_data - global_mean) / global_std
+final_train = (train_arr - global_mean) / global_std
 
 # Apply the same transformation to the test set.
-test_standardized = (test_data - global_mean) / global_std
+final_test = (test_arr - global_mean) / global_std
 
 # Summary printout of the preprocessing steps
+#\n is used to have a space between the output of the two print statements.
 print("\nAfter global standardization:")
-print(f"Training data shape: {train_standardized.shape}")
-print(f"Testing data shape: {test_standardized.shape}")
+print(f"Training data shape: {final_train.shape}")
+print(f"Testing data shape: {final_test.shape}")
 
 # For verification, print the mean and std of the first training image.
-print(f"First training image: Mean ≈ {np.mean(train_standardized[0]):.4f}, Std ≈ {np.std(train_standardized[0]):.4f}")
-
-#function runs only if this file is executed directly in main.ipynb
+print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}, Std ≈ {np.std(final_train[0]):.4f}")
