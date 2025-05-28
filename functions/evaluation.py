@@ -5,4 +5,4 @@ import functions.knn as knn
 import functions.preprocessing as preprocessing
 
 def model_evalutaion():
-    return accurracy
+    return 

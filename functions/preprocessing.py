@@ -30,8 +30,7 @@ for img_file in sorted(os.listdir(folder_path)):
         img = img.convert("L")
         # Convert the grayscale image to a NumPy array for numerical processing
         # Convert to a float32 NumPy array (this converts the integer data into float)
-        # then normalize by dividing by 255 so that pixel values are in [0,1]
-        image_data = np.array(img, dtype=np.float32) / 255.0
+        image_data = np.array(img, dtype=np.float32)
         # Flatten the 2D image array into a 1D vector.
         flat_image = image_data.flatten()
     

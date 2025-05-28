@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from functions.preprocessing import train_centered, test_centered
-from functions.pca import PCA, svd_for_pca
+import functions.preprocessing as preprocessing
+import functions.pca as pca
 
 # As we will use the euclidean distance for the KNN
 # Algorithm, we will define a function to calculate 
@@ -33,7 +33,7 @@ def kNN_predict(train_img, test_img, k, labels):
         counts, values = np.unique(k_labels, return_counts = True)
 
         # Get the label with the highest count.
-        predicted_label = values[np.argmay(counts)]
+        predicted_label = values[np.argmax(counts)]
 
         # Append the predicted label to the list.
         predicitions.append[predicted_label]
