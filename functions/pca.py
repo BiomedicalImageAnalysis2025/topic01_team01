@@ -1,5 +1,3 @@
-# Here all the preprocessing steps are defined including splittin the dataset, to prepare the data for PCA.
-# import necessary libraries
 import os
 import numpy as np
 import matplotlib.pyplot as plt
