@@ -84,23 +84,24 @@ train_arr = np.array(train_data)  # Shape: (n_train, num_features)
 test_arr = np.array(test_data)   # Shape: (n_test, num_features)
 
 # Compute global mean and standard deviation from training data only.
-global_mean = np.mean(train_arr, axis=0)
-global_std  = np.std(train_arr, axis=0)
+train_mean = np.mean(train_arr, axis=0)
+#global_std  = np.std(train_arr, axis=0)
 
 # To avoid division by zero, replace any zeros in the std vector.
-global_std[global_std == 0] = 1e-8
+#global_std[global_std == 0] = 1e-8
 
-# Standardize the training set.
-final_train = (train_arr - global_mean) / global_std
+# Center the training set.
+final_train = (train_arr - train_mean) #/ global_std is used for standardization, but here we only center the data.
 
 # Apply the same transformation to the test set.
-final_test = (test_arr - global_mean) / global_std
+final_test = (test_arr - train_mean) #/ global_std
 
 # Summary printout of the preprocessing steps
 #\n is used to have a space between the output of the two print statements.
-print("\nAfter global standardization:")
+print("\nAfter preprocessing:")
 print(f"Training data shape: {final_train.shape}")
 print(f"Testing data shape: {final_test.shape}")
 
 # For verification, print the mean and std of the first training image.
-print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}, Std ≈ {np.std(final_train[0]):.4f}")
+# , Std ≈ {np.std(final_train[0]):.4f}
+print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}")
