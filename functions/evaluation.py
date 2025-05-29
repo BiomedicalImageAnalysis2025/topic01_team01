@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import functions.knn as knn
 import functions.preprocessing as preprocessing
+import functions.pca as pca
 
 def model_evaluation(test_img, test_indices, train_img, train_labels, k):
     """
@@ -48,4 +49,25 @@ def model_evaluation(test_img, test_indices, train_img, train_labels, k):
     return accuracy
 
 
+# Evaluation for different k values and different amounts of principal componenets, as well as 
+# different training set sizes.
 
+acurracies = []
+
+for k in range (1,100, 1):
+
+    # * 100 is used to get the percentage.
+    acurracies.append(model_evaluation(k) * 100)
+
+acurracies = np.array(acurracies)
+
+# Create the x axis with the k values.
+x = np.arange(1, 100, 1)
+
+# Plot the accuracies against the different k values.
+
+plt.plot(x, acurracies, color = "blue")
+plt.title("Model Evaluation for different k Values")
+plt.xlabel("k Values")
+plt.ylabel("Accuracy (%)")
+plt.show()
