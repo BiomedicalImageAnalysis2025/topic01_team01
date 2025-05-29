@@ -4,6 +4,12 @@ import numpy as np
 from PIL import Image
 
 def  pca(X, n_components):
+    # X is the input data matrix (training or test set -> train_centered or test_centered).
+    # No need for normalize the matrix as the SVD will automatically
+    # calculate the direction of the highest variance.
+    # U = Contains the left singular vectors (eigenfaces) -> quadratic matrix 
+    # S = 1D Array of the singular values (variance) 
+    # VT = Contains the right singular vectors (eigenvectors) -> quadratic matrix
     #performing SVD
     #we use full_matrices=False to get reduced matrices
     U, S, Vt = np.linalg.svd(X, full_matrices=False)
