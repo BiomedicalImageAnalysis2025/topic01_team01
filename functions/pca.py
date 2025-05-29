@@ -18,6 +18,12 @@ def  pca(X, n_components):
     S_reduced = S[:n_components]
     V_reduced  = Vt[:n_components, :]
 
+    # Be aware of the correct matrix mulitplication order.
+    # Note that W returns as k x D matrix, where k is the number
+    # of components and D the number of pixel but we need 
+    # to multiply it with the X matrix which
+    # is N x D, where N is the number of images and D the number of pixels. 
+    # -> For multiplication to work, we need to transpose W to D x k.
     
     #projecting the data onto the reduced space 
     X_reduced = X @ V_reduced.T
