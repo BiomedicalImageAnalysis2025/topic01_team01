@@ -8,13 +8,24 @@ import functions.pca as pca
 # the euclidean distance between two points.
 
 def distance_euclidean(a,b):
-    return np.square(np.sum(a - b)**2)
+    """
+    Returns the euclidean distance between two points a and b.
+    """
+    return np.sqrt(np.sum((a - b)**2))
 
 
-def kNN_predict(train_img, test_img, k, labels):
-    # Set how many neighbours we want to consider.
-    k = 10
+# Set how many neighbours we want to consider.
+# k = 1, 2, 3, 4, 5, etc.
 
+
+def kNN_predict(train_img, test_img, labels, k = 3,):
+    """
+    Calculates the distance between each test image and ALL training images.
+    train_img: List of processed training images.
+    test_img: List of processed test images.
+    labels: Labels of the training images.
+    k: Number of nearest neighbours to consider.
+    """
     # Initilize an empty list to store the predictions.
     predicitions = []
 
