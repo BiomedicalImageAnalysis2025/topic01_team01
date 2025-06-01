@@ -7,7 +7,7 @@ from PIL import Image
   
 # Path to the dataset folder. os.getcwd() gets the current working directory.
 # If The dataset folder is one level up from the current working directory,  use "../" before "datasets".
-folder_path = os.path.join(os.getcwd(), "datasets")
+folder_path = os.path.join(os.getcwd(), "../datasets")
 
 # Create a dictionary to group images by individual.
 grouped_images = {}
@@ -19,7 +19,7 @@ for img_file in sorted(os.listdir(folder_path)):
         continue
 
     # Extract person’s identifier from the filename.
-    # I our case, the identifier is the first part of the filename before the dot.
+    # In our case, the identifier is the first part of the filename before the dot.
     # [0] splits the string at the dot and takes the first part.
     subject_id = img_file.split(".")[0]
     

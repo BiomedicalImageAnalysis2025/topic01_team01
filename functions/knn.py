@@ -1,7 +1,6 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
-import functions.preprocessing as preprocessing
-import functions.pca as pca
 
 # As we will use the euclidean distance for the KNN
 # Algorithm, we will define a function to calculate 

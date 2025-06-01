@@ -1,8 +1,9 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt 
-import functions.knn as knn
-import functions.preprocessing as preprocessing
-import functions.pca as pca
+import knn
+import preprocessing
+import pca
 
 def model_evaluation(test_img, test_indices, train_img, train_labels, k):
     """
