@@ -3,9 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Choosing the smallest number of k possible to capture the desired variance.
-k = 100
+n_components = 15
 
-def svd_for_pca(X, k):
+def svd_for_pca(X, n_components):
     # X is the input data matrix (training or test set -> train_centered or test_centered).
     """
     Performs Singular Value Decomposition (SVD) on the input data matrix X
@@ -18,14 +18,18 @@ def svd_for_pca(X, k):
     # VT = Contains the right singular vectors (eigenvectors) -> quadratic matrix
     U, S, VT = np.linalg.svd(X, full_matrices = False)
     # Lets store the top k rows in a new matrix for PCA.
-    projection_matrix = VT[ :k, : ]
+    projection_matrix = VT[ :n_components, : ]
+    singular_values = S[ :n_components]     
 
+
+    eigenvalues = singular_values ** 2
+    variance_explained = eigenvalues / np.sum(S ** 2)
     # Show the variance captured by each component.
-    print(f"Variance captured by each component: {S[:k]}")
-    # If the summed variance of k components explains more than 85% of the total variance, we can consider this a good choice.
-    print(f"Variance captured by the first {k} components: {np.sum(S[:k]) / np.sum(S) * 100:.2f}%")
+    print(f"Explained variance ratio by first 15 components:\n {variance_explained[:5]}\n")
+    # If the summed variance of n_components explains more than 85% of the total variance, we can consider this a good choice.
+    print(f"Variance captured by the first {n_components} components: {np.sum(S[:k]) / np.sum(S) * 100:.2f}%")
 
-    return projection_matrix, S
+    return projection_matrix, singular_values, variance_explained, eigenvalues
 
 
 def PCA(projection_matrix, X):
@@ -43,6 +47,6 @@ def PCA(projection_matrix, X):
     pca_dataset = X @ projection_matrix.T
 
     # The shape should be now 120 (for training) and 45 (for testing) x k.
-    print(f"PCA dataset shape: {pca_dataset.shape}")
+    print(f"Succesfully transformed Matrix from {X} to {pca_dataset.shape}\n")
 
     return pca_dataset
