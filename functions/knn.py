@@ -28,6 +28,8 @@ def kNN_predict(train_img, test_img, labels, k = 3,):
     # Initilize an empty list to store the predictions.
     predicitions = []
 
+    labels = np.repeat(np.arange(1, 15 + 1), 11)
+
     for test_img in test_img:
 
         # Calculate the distance between the test image an all training images.
