@@ -48,6 +48,9 @@ np.random.seed(165)
 # Prepare separate lists for training and testing images.
 train_data = []
 test_data = []
+#labels are later used for the KNN classifier.
+train_labels = []
+test_labels = []
 
 # For each individual, randomly assign 8 images to training and 3 to testing.
 for subject, images in grouped_images.items():
@@ -70,8 +73,10 @@ for subject, images in grouped_images.items():
         # distribute images to training and testing sets based on the label which is randomly assigned.
         if label == 'train':
             train_data.append(image)
+            train_labels.append(subject)
         else:
             test_data.append(image)
+            test_labels.append(subject)
 
 # output you see in main.ipynb
 print(f"Total training images: {len(train_data)}")
