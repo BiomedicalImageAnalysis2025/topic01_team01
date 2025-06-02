@@ -5,10 +5,10 @@ import knn
 import preprocessing
 import pca
 
-def model_evaluation(test_img, test_indices, train_img, train_labels, k):
+def model_evaluation(test_img, img_indices, train_img, train_labels, k):
     """
     test_img: Processed test images (PCA).
-    test_indices: Original incices of the test images out of the complete dateset.
+    img_indices: Original incices of the test images out of the complete dateset.
     train_img: Processed training images (PCA).
     train_labels: Labels of the training images to assign the test images to the k nearest neighbours.
     k: Number of nearest neighbours to consider for the KNN algorithm.
@@ -30,7 +30,7 @@ def model_evaluation(test_img, test_indices, train_img, train_labels, k):
         # The +1 is needed because the person IDs start at 1, not 0.
             # Note that this method only works because we know that each person has 11 images in the dataset and
             # we sorted them beforehand. 
-        personID = (test_indices[i] // 11) + 1 
+        personID = (img_indices[i] // 11) + 1 
 
         if prediction == personID:
 
@@ -49,26 +49,27 @@ def model_evaluation(test_img, test_indices, train_img, train_labels, k):
 
     return accuracy
 
+# To prevent the code from running when imported as a module, we will use the if __name__ == "__main__": statement.
+if __name__ == "__main__":
+    # Evaluation for different k values and different amounts of principal componenets, as well as 
+    # different training set sizes.
 
-# Evaluation for different k values and different amounts of principal componenets, as well as 
-# different training set sizes.
+    acurracies = []
 
-acurracies = []
+    for k in range (1,100, 1):
 
-for k in range (1,100, 1):
+        # * 100 is used to get the percentage.
+        acurracies.append(model_evaluation(k) * 100)
 
-    # * 100 is used to get the percentage.
-    acurracies.append(model_evaluation(k) * 100)
+    acurracies = np.array(acurracies)
 
-acurracies = np.array(acurracies)
+    # Create the x axis with the k values.
+    x = np.arange(1, 100, 1)
 
-# Create the x axis with the k values.
-x = np.arange(1, 100, 1)
+    # Plot the accuracies against the different k values.
 
-# Plot the accuracies against the different k values.
-
-plt.plot(x, acurracies, color = "blue")
-plt.title("Model Evaluation for different k Values")
-plt.xlabel("k Values")
-plt.ylabel("Accuracy (%)")
-plt.show()
+    plt.plot(x, acurracies, color = "blue")
+    plt.title("Model Evaluation for different k Values")
+    plt.xlabel("k Values")
+    plt.ylabel("Accuracy (%)")
+    plt.show()

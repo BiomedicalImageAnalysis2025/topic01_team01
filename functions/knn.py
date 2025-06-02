@@ -17,7 +17,7 @@ def distance_euclidean(a,b):
 # k = 1, 2, 3, 4, 5, etc.
 
 
-def kNN_predict(train_img, test_img, labels, k = 3,):
+def kNN_predict(train_img, test_img, labels, k):
     """
     Calculates the distance between each test image and ALL training images.
     train_img: List of processed training images.
@@ -28,8 +28,7 @@ def kNN_predict(train_img, test_img, labels, k = 3,):
     # Initilize an empty list to store the predictions.
     predicitions = []
 
-    labels = np.repeat(np.arange(1, 15 + 1), 11)
-
+    # Loop through each test image.
     for test_img in test_img:
 
         # Calculate the distance between the test image an all training images.
@@ -48,7 +47,6 @@ def kNN_predict(train_img, test_img, labels, k = 3,):
         predicted_label = values[np.argmax(counts)]
 
         # Append the predicted label to the list.
-        predicitions.append[predicted_label]
+        predicitions.append(predicted_label)
 
     return predicitions
-
