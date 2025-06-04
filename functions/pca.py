@@ -51,10 +51,10 @@ def pca(train_data, n_components):
     variance_explained = eigenvalues / np.sum(S ** 2)
     #returning reduced data
     print(f"Succesfully reduced Matrix from {train_data.shape} to {train_reduced.shape}\n")
-    print(f"Explained variance ratio by first 5 components:\n {variance_explained[:5]}\n")
+    # print(f"Explained variance ratio by first 5 components:\n {variance_explained[:5]}\n")
     # print(f"Total explained variance: {np.sum(variance_explained)}")
 
-    return U_reduced, S_reduced, V_reduced, train_reduced, eigenvalues, variance_explained
+    return U_reduced, S_reduced, V_reduced, train_reduced, eigenvalues, variance_explained, n_components
 
 def pca_transform(test_data, V_reduced):
     """Transform the data matrix using the PCA projection matrix.

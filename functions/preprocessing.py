@@ -61,22 +61,35 @@ for subject, images in grouped_images.items():
     # Shuffle images in-place with NumPy's shuffle.
     np.random.shuffle(images)
     
+    # Split into training (first 8) and testing (last 3)
+    subject_train = images[:8]
+    subject_test = images[8:11]
+
+    # Append images and corresponding labels
+    train_data.extend(subject_train)
+    #[subject] * len(subject_train) creates a list where each image has the same subject label
+    # This is used for the KNN classifier later.
+    train_labels.extend([subject] * len(subject_train)) 
+    #.extend is used to add elements of the list subject_train to train_data individually.
+    # output is one list, instead of a list of lists.(this would have been the case if we used append)
+    test_data.extend(subject_test)
+    test_labels.extend([subject] * len(subject_test))
+
+
     # Create an array of labels: 8 'train' and 3 'test'.
-    labels = np.array(['train'] * 8 + ['test'] * 3)
+    #labels = np.array(['train'] * 8 + ['test'] * 3)
     
     # Shuffle the labels, so that the assignment order is random.
-    np.random.shuffle(labels)
+    #np.random.shuffle(labels)
     
     # Now pair each image with a label.
     # zip combines the images and labels into pairs.
-    for image, label in zip(images, labels):
+    #for image, label in zip(images, labels):
         # distribute images to training and testing sets based on the label which is randomly assigned.
-        if label == 'train':
-            train_data.append(image)
-            train_labels.append(subject)
-        else:
-            test_data.append(image)
-            test_labels.append(subject)
+       # if label == 'train':
+       #     train_data.append(image)
+        #else:
+        #    test_data.append(image)
 
 # output you see in main.ipynb
 print(f"Total training images: {len(train_data)}")
