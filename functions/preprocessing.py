@@ -43,6 +43,9 @@ def preprocess_data():
     # Prepare separate lists for training and testing images.
     final_train = []
     final_test = []
+    test_indices = []
+
+    image_count = 0
 
     # For each individual, randomly assign 8 images to training and 3 to testing.
     for subject, images in grouped_images.items():
@@ -67,6 +70,8 @@ def preprocess_data():
                 final_train.append(image)
             else:
                 final_test.append(image)
+                test_indices.append(image_count)
+            image_count += 1
 
     # output you see in main.ipynb
     print(f"Total training images: {len(final_train)}")
@@ -94,4 +99,4 @@ def preprocess_data():
     # For verification, print the mean and std of the first training image.
     print(f"First training image: Mean ≈ {np.mean(train_centered[0]):.4f}")
 
-    return train_centered, test_centered
+    return train_centered, test_centered, test_indices
