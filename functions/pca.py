@@ -18,8 +18,8 @@ X = []  # image data
 y = []  # labels
 
 # Load images and extract labels
-for filename in os.listdir(DATASET_DIR)
-    if filename.endswith('.gif') 
+for filename in os.listdir(DATASET_DIR):
+    if filename.endswith('.gif') :
         # Extract subject number from filename (e.g., 'subject01' -> 1)
         subject_id = int(filename.split('subject')[1].split('_')[0])
 
@@ -41,7 +41,7 @@ X_scaled = scaler.fit_transform(X)
 
 # Apply PCA
 pca = PCA(n_components=100, whiten=True)
-X_pca =.fit_transform(X_scaled)
+X_pca =fit_transform(X_scaled)
 
 # Split data into train/test
 X_train, X_test, y_train, y_test = train_test_split(X_pca, y, test_size=0.2, random_state=42)
