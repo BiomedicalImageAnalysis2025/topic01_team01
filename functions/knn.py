@@ -1,7 +1,8 @@
+# Here, the implementation of the k-Nearest Neighbors (KNN) algorithm can be found.
 import os
 import numpy as np
 from PIL import Image
-# for K-Nearest Neighbors (KNN) algorithm, a distance function is determine nearest neighbors
+
 def knn_classifier(train_data, train_labels, test_data, k):
     """
     k-Nearest Neighbors (KNN) classifier implementation.

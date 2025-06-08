@@ -1,5 +1,4 @@
-# Here all the preprocessing steps are defined including splittin the dataset, to prepare the data for PCA.
-# import necessary libraries
+# Here all the preprocessing steps are defined including splitting the dataset
 import os
 import numpy as np
 from PIL import Image
@@ -48,17 +47,17 @@ np.random.seed(165)
 # Prepare separate lists for training and testing images.
 train_data = []
 test_data = []
-#labels are later used for the KNN classifier.
+# Prepare labels lists, which will later be used for the KNN classifier.
 train_labels = []
 test_labels = []
 
 # For each individual, randomly assign 8 images to training and 3 to testing.
 for subject, images in grouped_images.items():
     # Convert list of images to a numpy array for shuffling. 
-    # This shuffling is along axis 0. (along rows, in our case images)
     images = np.array(images)
     
     # Shuffle images in-place with NumPy's shuffle.
+    # This shuffling is along axis 0. (along rows, in our case images)
     np.random.shuffle(images)
     
     # Split into training (first 8) and testing (last 3)
@@ -67,7 +66,7 @@ for subject, images in grouped_images.items():
 
     # Append images and corresponding labels
     train_data.extend(subject_train)
-    #[subject] * len(subject_train) creates a list where each image has the same subject label
+    # [subject] * len(subject_train) creates a list where each image has the same subject label
     # This is used for the KNN classifier later.
     train_labels.extend([subject] * len(subject_train)) 
     #.extend is used to add elements of the list subject_train to train_data individually.
@@ -103,16 +102,16 @@ test_arr = np.array(test_data)   # Shape: (n_test, num_features)
 
 # Compute global mean and standard deviation from training data only.
 train_mean = np.mean(train_arr, axis=0)
-#global_std  = np.std(train_arr, axis=0)
+global_std  = np.std(train_arr, axis=0)
 
 # To avoid division by zero, replace any zeros in the std vector.
-#global_std[global_std == 0] = 1e-8
+global_std[global_std == 0] = 1e-8
 
 # Center the training set.
-final_train = (train_arr - train_mean) #/ global_std is used for standardization, but here we only center the data.
+final_train = (train_arr - train_mean) / global_std
 
 # Apply the same transformation to the test set.
-final_test = (test_arr - train_mean) #/ global_std
+final_test = (test_arr - train_mean) / global_std
 
 # Summary printout of the preprocessing steps
 #\n is used to have a space between the output of the two print statements.
@@ -121,5 +120,4 @@ print(f"Training data shape: {final_train.shape}")
 print(f"Testing data shape: {final_test.shape}")
 
 # For verification, print the mean and std of the first training image.
-# , Std ≈ {np.std(final_train[0]):.4f}
-print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}")
+print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}, Std ≈ {np.std(final_train[0]):.4f}")
