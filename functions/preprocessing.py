@@ -42,7 +42,7 @@ for img_file in sorted(os.listdir(folder_path)):
     grouped_images[subject_id].append(flat_image)  
 
 # Set a random seed for reproducibility (output is the same every time).
-np.random.seed(165)
+np.random.seed(727)
 
 # Prepare separate lists for training and testing images.
 train_data = []
@@ -54,10 +54,11 @@ test_labels = []
 # For each individual, randomly assign 8 images to training and 3 to testing.
 for subject, images in grouped_images.items():
     # Convert list of images to a numpy array for shuffling. 
+    # difference between list and numpay array is that numpy arrays are more optimized for numerical operations.
     images = np.array(images)
     
     # Shuffle images in-place with NumPy's shuffle.
-    # This shuffling is along axis 0. (along rows, in our case images)
+    # This shuffling is along axis 0, meaning it shuffles the rows (images) randomly within the array.
     np.random.shuffle(images)
     
     # Split into training (first 8) and testing (last 3)
@@ -66,41 +67,28 @@ for subject, images in grouped_images.items():
 
     # Append images and corresponding labels
     train_data.extend(subject_train)
-    # [subject] * len(subject_train) creates a list where each image has the same subject label
+    # Multiplying [subject] by len(subject_train) creates a list where the same subject ID repeats n times 
+    # (where n is the number of training images for that subject).
     # This is used for the KNN classifier later.
     train_labels.extend([subject] * len(subject_train)) 
     #.extend is used to add elements of the list subject_train to train_data individually.
-    # output is one list, instead of a list of lists.(this would have been the case if we used append)
+    #the output is one list, instead of a list of lists.(this would have been the case if we used .append)
     test_data.extend(subject_test)
     test_labels.extend([subject] * len(subject_test))
-
-
-    # Create an array of labels: 8 'train' and 3 'test'.
-    #labels = np.array(['train'] * 8 + ['test'] * 3)
-    
-    # Shuffle the labels, so that the assignment order is random.
-    #np.random.shuffle(labels)
-    
-    # Now pair each image with a label.
-    # zip combines the images and labels into pairs.
-    #for image, label in zip(images, labels):
-        # distribute images to training and testing sets based on the label which is randomly assigned.
-       # if label == 'train':
-       #     train_data.append(image)
-        #else:
-        #    test_data.append(image)
 
 # output you see in main.ipynb
 print(f"Total training images: {len(train_data)}")
 print(f"Total testing images: {len(test_data)}")
 
-# Now Normalization & Standardization is performed
+
+#  Now Normalization & Standardization is performed
 
 # Convert lists to NumPy arrays.
 train_arr = np.array(train_data)  # Shape: (n_train, num_features)
 test_arr = np.array(test_data)   # Shape: (n_test, num_features)
 
 # Compute global mean and standard deviation from training data only.
+# axis = 0 means we compute the mean and std across all training images for each feature (pixel).
 train_mean = np.mean(train_arr, axis=0)
 global_std  = np.std(train_arr, axis=0)
 
@@ -119,5 +107,6 @@ print("\nAfter preprocessing:")
 print(f"Training data shape: {final_train.shape}")
 print(f"Testing data shape: {final_test.shape}")
 
-# For verification, print the mean and std of the first training image.
+# For verification, that the preprocessing worked correctly:
+print("\nVerification of preprocessing:")
 print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}, Std ≈ {np.std(final_train[0]):.4f}")

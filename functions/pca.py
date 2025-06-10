@@ -4,21 +4,19 @@ import numpy as np
 from PIL import Image
 
 # Function to perform PCA on a dataset of images
-def pca(train_data, n_components):
+def svd_pca(input_matrix, n_components):
     """Compute the PCA transformation for the training set dat_matrix using SVD.
 
     Args:
-        dat_matrix : ndarray of shape (n_samples, n_features)
+        input_matrix : ndarray of shape (n_samples, n_features)
             Training data.
         n_components : int
             Number of principal components to keep.
 
     Returns:
-        U_reduced : ndarray of shape (n_samples, n_components)
-            The left singular vectors (principal components) of the data matrix.
-        S_reduced : ndarray of shape (n_components,)
+        singular_values : ndarray of shape (n_components,)
             The singular values (square roots of eigenvalues) corresponding to the principal components.    
-        V_reduced : ndarray of shape (n_components, n_features)
+        projection_matrix : ndarray of shape (n_components, n_features)
             The projection matrix containing the top principal component directions.
         eigenvalues : ndarray of shape (n_components,)
             The eigenvalues corresponding to the selected components (variance captured).
@@ -31,37 +29,40 @@ def pca(train_data, n_components):
     """
     # VT = Contains the right singular vectors (eigenvectors) -> quadratic matrix
     # we use full_matrices=False to get reduced matrices
-    U, S, VT = np.linalg.svd(train_data, full_matrices=False)
-    # selecting the first n_components
-    U_reduced = U[:, :n_components]  # n_samples x n_components
-    S_reduced = S[:n_components]     # n_components
-    V_reduced  = VT[:n_components, :]
+    U, S, VT = np.linalg.svd(input_matrix, full_matrices=False)
+
+    # S contains the singular values, which are the square roots of the eigenvalues
+    # We take the first n_components singular values and corresponding vectors (projection matrix)
+    singular_values = S[:n_components]
+    projection_matrix  = VT[:n_components, :]
 
     # Be aware of the correct matrix mulitplication order.
-    # Note that V_reduced returns as n x D matrix, where n is the number
-    # of components and D the number of pixel but we need to multiply it with the train_data which
+    # Note that projection_matrix returns as n x D matrix, where n is the number
+    # of components and D the number of pixel but we need to multiply it with the input_data which
     # is N x D, where N is the number of images and D the number of pixels. 
-    # -> For multiplication to work, we need to transpose V_reduced to D x n.
+    # -> For multiplication to work, we need to transpose projection_matrix to D x n.
     
     # projecting the data onto the reduced space 
-    train_reduced = train_data @ V_reduced.T
+    train_reduced = input_matrix @ projection_matrix.T
 
     # defining the eigenvalues 
-    eigenvalues = S_reduced ** 2
+    eigenvalues = singular_values ** 2
     # calculating the variance explained by each component
-    variance_explained = eigenvalues / np.sum(S ** 2)
+    # we need to divide the eigenvalues by the total sum of eigenvalues to get the explained variance ratio
+    # we convert the absolute eigenvalues to relative values
+    explained_variance_ratio = eigenvalues / np.sum(eigenvalues)
     # returning reduced data
-    print(f"Succesfully reduced Matrix from {train_data.shape} to {train_reduced.shape}\n")
+    print(f"Succesfully reduced Matrix from {input_matrix.shape} to {train_reduced.shape}\n")
 
-    return U_reduced, S_reduced, V_reduced, train_reduced, eigenvalues, variance_explained, n_components
+    return projection_matrix, train_reduced, explained_variance_ratio
 
-def pca_transform(test_data, V_reduced):
+def pca_transform(test_data, projection_matrix):
     """Transform the data matrix using the PCA projection matrix.
 
     Args:
         test_data: ndarray of shape (n_samples, n_features)
             The data to be transformed.
-        V_reduced : ndarray of shape (n_components, n_features)
+        projection_matrix : ndarray of shape (n_components, n_features)
             The PCA projection matrix.
 
     Returns:
@@ -69,7 +70,7 @@ def pca_transform(test_data, V_reduced):
             The transformed data in the PCA space.
     """       
     # Project the test data onto the PCA space using the projection matrix V_reduced
-    test_reduced = test_data @ V_reduced.T
-    print(f"Succesfully transformed Matrix from {test_data.shape} to {test_reduced.shape}\n")
+    test_reduced = test_data @ projection_matrix.T
+    print(f"Succesfully transformed Matrix from {test_data.shape} to {test_reduced.shape}")
 
     return test_reduced
