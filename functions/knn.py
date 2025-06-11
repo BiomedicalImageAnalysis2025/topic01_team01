@@ -3,7 +3,7 @@ import os
 import numpy as np
 from PIL import Image
 
-def knn_classifier(train_reduced, train_labels, test_reduced,test_labels, k):
+def knn_classifier(train_reduced, train_labels, test_reduced, test_labels, k):
     """
     k-Nearest Neighbors (KNN) classifier implementation.
 
