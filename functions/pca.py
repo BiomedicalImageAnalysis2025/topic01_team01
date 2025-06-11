@@ -8,18 +8,18 @@ def svd_pca(input_matrix, n_components):
     """Compute the PCA transformation for the training set dat_matrix using SVD.
 
     Args:
-        input_matrix : ndarray of shape (n_samples, n_features)
+        input_matrix (ndarray of shape (n_samples, n_features)):
             Training data.
-        n_components : int
+        n_components (int) : 
             Number of principal components to keep.
 
     Returns:
-        projection_matrix : ndarray of shape (n_components, n_features)
-            The projection matrix containing the top principal component directions.
-        train_reduced : ndarray of shape (n_samples, n_components)
-            The training data projected onto the PCA space.
-        explained_variance_ratio : ndarray of shape (n_components,)
-            The ratio of variance explained by each principal component.
+        projection_matrix (ndarray of shape (n_components, n_features)) : 
+            The PCA projection matrix.
+        train_reduced (ndarray of shape (n_samples, n_components)) : 
+            The reduced training data in the PCA space.
+        explained_variance_ratio (ndarray of shape (n_components,)) : 
+            The variance explained by each principal component.
     """
     # VT = Contains the right singular vectors (eigenvectors) -> rectangular matrix (A^TA)^T	
     # U = Contains the left singular vectors (eigenvectors) -> rectangular matrix (AA^T)
@@ -55,13 +55,13 @@ def pca_transform(test_data, projection_matrix):
     """Transform the data matrix using the PCA projection matrix.
 
     Args:
-        test_data: ndarray of shape (n_samples, n_features)
+        test_data (ndarray of shape (n_samples, n_features)): 
             The data to be transformed.
-        projection_matrix : ndarray of shape (n_components, n_features)
+        projection_matrix (ndarray of shape (n_components, n_features)):
             The PCA projection matrix.
 
     Returns:
-        test_reduced : ndarray of shape (n_samples, n_components)
+        test_reduced (ndarray of shape (n_samples, n_components)) : 
             The transformed data in the PCA space.
     """       
     # Project the test data onto the PCA space using the projection matrix V_reduced
