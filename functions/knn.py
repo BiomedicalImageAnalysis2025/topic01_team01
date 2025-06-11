@@ -1,52 +1,50 @@
+# Here, the implementation of the k-Nearest Neighbors (KNN) algorithm can be found.
 import os
 import numpy as np
-import matplotlib.pyplot as plt
+from PIL import Image
 
-# As we will use the euclidean distance for the KNN
-# Algorithm, we will define a function to calculate 
-# the euclidean distance between two points.
-
-def distance_euclidean(a,b):
+def knn_classifier(train_reduced, train_labels, test_reduced,test_labels, k):
     """
-    Returns the euclidean distance between two points a and b.
+    k-Nearest Neighbors (KNN) classifier implementation.
+
+    Args:
+      train_data (np.ndarray): 2D array of training data points, each row is a data point.
+      labels (list or np.ndarray): List of labels for the training data.
+      test_data (np.ndarray): 2D array of test data points.
+      k (int): Number of nearest neighbors to consider.
+
+    Returns:
+      list: Predicted labels for each test data point.
     """
-    return np.sqrt(np.sum((a - b)**2))
+    predictions = []
+    
+    # Loop over each test sample
+    for test_point in test_reduced:
+        # Compute Euclidean distances between the test point and all training samples.
+        # axis=1 ensures that we compute the distance for each row (sample) through the columns (features).
+        # The subtraction is vectorized over the training data for efficiency.
+        distances = np.sqrt(np.sum((train_reduced - test_point) ** 2, axis=1))
+        
+        # Retrieve the indices of the k smallest distances.
+        k_indices = np.argsort(distances)[:k]
 
-
-# Set how many neighbours we want to consider.
-# k = 1, 2, 3, 4, 5, etc.
-
-
-def kNN_predict(train_img, test_img, labels, k):
-    """
-    Calculates the distance between each test image and ALL training images.
-    train_img: List of processed training images.
-    test_img: List of processed test images.
-    labels: Labels of the training images.
-    k: Number of nearest neighbours to consider.
-    """
-    # Initilize an empty list to store the predictions.
-    predicitions = []
-
-    # Loop through each test image.
-    for test_img in test_img:
-
-        # Calculate the distance between the test image an all training images.
-        distance = [distance_euclidean(test_img, train_img) for train_img in train_img]
-
-        # Sort the distances and get the smallest k indices -> nearest neighbours.
-        k_indices = np.argsort(distance)[ :k]
-
-        # Get the labels of these neighbours.
-        k_labels = labels[k_indices]
-
-        # Count how often each label appears.
-        counts, values = np.unique(k_labels, return_counts = True)
+        # Retrieve the labels for these k nearest neighbors.
+        k_labels = [train_labels[i] for i in k_indices]
+        
+         # Get the labels of the k nearest neighbors.
+        #counts, values = np.unique(k_labels, return_counts = True)
 
         # Get the label with the highest count.
-        predicted_label = values[np.argmax(counts)]
+        #predicted_label = values[np.argmax(counts)]
+        predicted_label = max(set(k_labels), key=k_labels.count)
+        
+        predictions.append(predicted_label)
 
-        # Append the predicted label to the list.
-        predicitions.append(predicted_label)
-
-    return predicitions
+    # ... == ... creates a Boolean NumPy array where each element is True if the predicted label matches the true label, and False otherwise
+    # and compares the predicted labels with the actual test labels
+    # lastly mean() calculates the proportion of correct predictions
+    accuracy = np.mean(np.array(predictions) == np.array(test_labels))
+    # 100:.2 formats the accuracy as a percentage with two decimal places
+    print(f"k-NN Classification Accuracy: {accuracy * 100:.2f}%")
+    
+    return predictions
