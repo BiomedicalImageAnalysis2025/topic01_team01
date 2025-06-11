@@ -14,24 +14,19 @@ def svd_pca(input_matrix, n_components):
             Number of principal components to keep.
 
     Returns:
-        singular_values : ndarray of shape (n_components,)
-            The singular values (square roots of eigenvalues) corresponding to the principal components.    
         projection_matrix : ndarray of shape (n_components, n_features)
             The projection matrix containing the top principal component directions.
-        eigenvalues : ndarray of shape (n_components,)
-            The eigenvalues corresponding to the selected components (variance captured).
         train_reduced : ndarray of shape (n_samples, n_components)
             The training data projected onto the PCA space.
-        variance_explained : ndarray of shape (n_components,)
+        explained_variance_ratio : ndarray of shape (n_components,)
             The ratio of variance explained by each principal component.
-        n_components : int
-            The number of principal components used in the PCA transformation.
     """
-    # VT = Contains the right singular vectors (eigenvectors) -> quadratic matrix
+    # VT = Contains the right singular vectors (eigenvectors) -> rectangular matrix (A^TA)^T	
+    # U = Contains the left singular vectors (eigenvectors) -> rectangular matrix (AA^T)
     # we use full_matrices=False to get reduced matrices
     U, S, VT = np.linalg.svd(input_matrix, full_matrices=False)
 
-    # S contains the singular values, which are the square roots of the eigenvalues
+    # S contains the singular values, which are the square roots of the eigenvalues and lie on the diagonal of matrix sigma
     # We take the first n_components singular values and corresponding vectors (projection matrix)
     singular_values = S[:n_components]
     projection_matrix  = VT[:n_components, :]
