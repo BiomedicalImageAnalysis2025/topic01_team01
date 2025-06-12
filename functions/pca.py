@@ -1,65 +1,76 @@
-# functions to be used in the main.py file
+# PCA (Principal Component Analysis) implementation
 import os
-import cv2
 import numpy as np
-from sklearn.decomposition import PCA
-from sklearn.svm import SVC
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandernScaler
-from sklearn.metrics import classificaation_report
+from PIL import Image
 
-# Set image size (must match all images)
-IMG_SIZE = (100, 100)
+# Function to perform PCA on a dataset of images
+def svd_pca(input_matrix, n_components):
+    """Compute the PCA transformation for the training set dat_matrix using SVD.
 
-#Path to your dataset folder
-DATASET_DIR = 'dataset/'
+    Args:
+        input_matrix : ndarray of shape (n_samples, n_features)
+            Training data.
+        n_components : int
+            Number of principal components to keep.
 
-X = []  # image data
-y = []  # labels
+    Returns:
+        singular_values : ndarray of shape (n_components,)
+            The singular values (square roots of eigenvalues) corresponding to the principal components.    
+        projection_matrix : ndarray of shape (n_components, n_features)
+            The projection matrix containing the top principal component directions.
+        eigenvalues : ndarray of shape (n_components,)
+            The eigenvalues corresponding to the selected components (variance captured).
+        train_reduced : ndarray of shape (n_samples, n_components)
+            The training data projected onto the PCA space.
+        variance_explained : ndarray of shape (n_components,)
+            The ratio of variance explained by each principal component.
+        n_components : int
+            The number of principal components used in the PCA transformation.
+    """
+    # VT = Contains the right singular vectors (eigenvectors) -> quadratic matrix
+    # we use full_matrices=False to get reduced matrices
+    U, S, VT = np.linalg.svd(input_matrix, full_matrices=False)
 
-# Load images and extract labels
-for filename in os.listdir(DATASET_DIR):
-    if filename.endswith('.gif') :
-        # Extract subject number from filename (e.g., 'subject01' -> 1)
-        subject_id = int(filename.split('subject')[1].split('_')[0])
+    # S contains the singular values, which are the square roots of the eigenvalues
+    # We take the first n_components singular values and corresponding vectors (projection matrix)
+    singular_values = S[:n_components]
+    projection_matrix  = VT[:n_components, :]
 
-        # Load image in grayscale and resize
-        img_path = os.path.join(DATASET_DIR, datasets)
-        img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
-        img = cv2.resize(img, IMG_SIZE)
+    # Be aware of the correct matrix mulitplication order.
+    # Note that projection_matrix returns as n x D matrix, where n is the number
+    # of components and D the number of pixel but we need to multiply it with the input_data which
+    # is N x D, where N is the number of images and D the number of pixels. 
+    # -> For multiplication to work, we need to transpose projection_matrix to D x n.
+    
+    # projecting the data onto the reduced space 
+    train_reduced = input_matrix @ projection_matrix.T
 
-        # Flatten image to 1D vector
-        X.append(img.flatten())
-        y.append(subject_id)
+    # defining the eigenvalues 
+    eigenvalues = singular_values ** 2
+    # calculating the variance explained by each component
+    # we need to divide the eigenvalues by the total sum of eigenvalues to get the explained variance ratio
+    # we convert the absolute eigenvalues to relative values
+    explained_variance_ratio = eigenvalues / np.sum(eigenvalues)
+    # returning reduced data
+    print(f"Succesfully reduced Matrix from {input_matrix.shape} to {train_reduced.shape}\n")
 
-X = np.array(X)
-y = np.array(y)
+    return projection_matrix, train_reduced, explained_variance_ratio
 
-# Standardize the data
-scaler = StandardScaler
-X_scaled = scaler.fit_transform(X)
+def pca_transform(test_data, projection_matrix):
+    """Transform the data matrix using the PCA projection matrix.
 
-# Apply PCA
-pca = PCA(n_components=100, whiten=True)
-X_pca =fit_transform(X_scaled)
+    Args:
+        test_data: ndarray of shape (n_samples, n_features)
+            The data to be transformed.
+        projection_matrix : ndarray of shape (n_components, n_features)
+            The PCA projection matrix.
 
-# Split data into train/test
-X_train, X_test, y_train, y_test = train_test_split(X_pca, y, test_size=0.2, random_state=42)
+    Returns:
+        test_reduced : ndarray of shape (n_samples, n_components)
+            The transformed data in the PCA space.
+    """       
+    # Project the test data onto the PCA space using the projection matrix V_reduced
+    test_reduced = test_data @ projection_matrix.T
+    print(f"Succesfully transformed Matrix from {test_data.shape} to {test_reduced.shape}")
 
-# Train classifier (e.g., linear SVM)
-clf = SVC(kernel='linear')
-clf.fit(X_train, y_train)
-
-#Predict and evaluate
-y_pred = clf.predict(X_test)
-print(classification_report(y_test, y_pred))
-
-#Show some Eigenfaces
-import matplotlib.pyplot as plt
-
-eigenfaces = pca.components_.reshape((100, IMG_SIZE[0], IMG_SIZE[1]))
-for i in range(10):
-    plt.imshow(eigenfaces[i], cmap='gray')
-    plt.title(f"Eigenface {i+1}")
-    plt.axis('off')
-    plt.show()
+    return test_reduced
