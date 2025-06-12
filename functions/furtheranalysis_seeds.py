@@ -1,4 +1,4 @@
-# For further analysis, the preprocesing function has to be defined as a function.
+# For further analysis, the preprocessing code has to be defined as a function.
 
 import os
 import numpy as np
