@@ -22,7 +22,7 @@ This project implements a pipeline using:
 - **Principal Componenet Analyis (PCA)** to reduce high-dimensional image data into a lower-dimensional subspace (Eigenfaces). 
 - **K-Nearest Neighbour (KNN)** to assign each image to the individual it belongs to.
 
-The used *Yale Face Dataset* contains 165 gray scaele `.gif` files of uniform size includes multiple individuals with varying facial expressions and lighting conditions.
+The used *Yale Face Dataset* contains 165 gray scale `.gif` files of uniform size includes multiple individuals with varying facial expressions and lighting conditions.
 
 ---
 ## Git Organization 
