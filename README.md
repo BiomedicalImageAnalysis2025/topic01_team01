@@ -29,18 +29,18 @@ The used *Yale Face Dataset* contains 165 gray scaele `.gif` files of uniform si
 
 **The repository is structured as follows:**
  
-[datasets](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/datasets) 
-- Contains the raw and unprocessed images files.
-[functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions)
-- Custom implementation of the *Preprocessing-*, *PCA-*, *KNN-* and *Furtheranalysis-* functions.
-[main.ipynb](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/blob/main/main.ipynb)
-- The jupyter notebook explains all the methods including the results of each step with visualizations and graphics.
-`README.md`
-- The current file. Provides an overview of the project.
+[datasets](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/datasets) - Contains the raw and unprocessed images files.
+
+[functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions) - Custom implementation of the *Preprocessing-*, *PCA-*, *KNN-* and *Furtheranalysis-* functions.
+
+[main.ipynb](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/blob/main/main.ipynb)- The jupyter notebook explains all the methods including the results of each step with visualizations and graphics.
+
+`README.md` - The current file. Provides an overview of the project.
 
 ---
 ## Instructions 
-</br>
-</br>
-
+<Text>
+<Text>
+<Text>
+<Text>
 ---
