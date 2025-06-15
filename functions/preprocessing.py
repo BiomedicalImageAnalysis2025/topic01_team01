@@ -42,7 +42,7 @@ for img_file in sorted(os.listdir(folder_path)):
     grouped_images[subject_id].append(flat_image)  
 
 # Set a random seed for reproducibility (output is the same every time).
-np.random.seed(727)
+np.random.seed(83)
 
 # Prepare separate lists for training and testing images.
 train_data = []
