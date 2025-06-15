@@ -95,3 +95,57 @@ fig.update_layout(title={
 )
 
 fig.show()
+
+#confusion matrix plot with plotly
+
+# Create annotation text
+annotations = [[str(cm[i][j]) for j in range(len(classes))] for i in range(len(classes))]
+
+# Compute false annotations (misclassified entries)
+false_annotations = np.sum(cm) - np.trace(cm)  # Sum of non-diagonal entries
+
+# Compute missing annotations (count where diagonal != 3)
+# expected_value = 3  # Expected value on the diagonal
+# missing_annotations = np.sum(cm.diagonal() != expected_value)
+
+# Generate heatmap using Plotly
+fig = ff.create_annotated_heatmap(z=cm,
+                                  x=classes.tolist(),
+                                  y=classes.tolist(), 
+                                  annotation_text=annotations, colorscale='Blues')
+# Set labels
+fig.update_layout(title={
+        "text": f"Confusion Matrix for KNN Classification (k = {k})<br>"
+        f"Total missclassified Images: {false_annotations}",
+        "y": 0.925,  # Adjust the vertical position (higher value moves it further up)
+        "x": 0.5,   # Keep it centered
+        "xanchor": "center",
+        "yanchor": "top"},
+    xaxis_title="Predicted Labels", 
+    yaxis_title="True Labels",
+    autosize=False, 
+    width=900,
+    height=650,
+    xaxis=dict(side="bottom")
+)
+fig.show()
+
+# missclassified images plot with matplotlib
+
+# Determine misclassified indices
+#zipping the true labels and predictions to find misclassified images
+misclassified_indices = [i for i, (true, pred) in enumerate(zip(test_labels, predictions)) if true != pred]
+# Print the number of misclassified images and their indices
+print(f"Total misclassified images found: {len(misclassified_indices)}")
+print(misclassified_indices)
+# Let's plot up to 16 misclassified images (or fewer if not available)
+num_to_plot = min(16, len(misclassified_indices))
+# for this a plot with subplots is created
+plt.figure(figsize=(12, 12))
+for idx, mis_idx in enumerate(misclassified_indices[:num_to_plot]):
+    plt.subplot(4, 4, idx+1)
+    plt.imshow(original_shape_test_images[mis_idx], cmap='gray') # assuming grayscale images
+    plt.title(f"True: {test_labels[mis_idx]}\nPredicted: {predictions[mis_idx]}")
+    plt.axis('off')
+plt.suptitle("Misclassified Test Images", fontsize=16)
+plt.tight_layout(rect=[0, 0.03, 1, 0.95])
