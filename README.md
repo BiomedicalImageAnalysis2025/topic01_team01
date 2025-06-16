@@ -32,9 +32,9 @@ The used *Yale Face Dataset A* contains 165 gray scale `.gif` files of uniform s
  nicht vergessen die links zu aktualisieren 
 
 
-[datasets](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/datasets) - Contains the raw and unprocessed images files.
+[data](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/datasets) - Contains the raw and unprocessed images files.
 
-[functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions) - Custom implementation of the *Preprocessing-*, *PCA-*, *KNN-* and *Furtheranalysis-* functions.
+[functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions) - Custom implementation of the *Preprocessing-*, *PCA-*, *KNN-* and *Evaluation-* functions.
 
 [main.ipynb](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/blob/main/main.ipynb)- The jupyter notebook explains all the methods including the results of each step with visualizations and graphics.
 
@@ -60,9 +60,15 @@ If all packages were installed you can check out the `main.ipynb`. The Jupyter N
 
 For deeper insights click on [functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions). As every line of code is commented very detailed no uncertainties should be left. If so and you want to learn more about the theory of each method, sources to books and papers were also provided in each section and in the appendix.
 
-BEISPIELQUELLE:
-
-[SVD and PCA](https://databookuw.com/databook.pdf)
-etc....
 
 ---
+
+## Literature 
+
+- Gerbrands, J.J. "On the relationships between SVD, KLT and PCA." Pattern Recognition (1981), vol. 14, issues 1-6, pp 375-381
+Belhumeur, P.N., Hespanha, J.P. and Kriegman, D. "Eigenfaces vs. Fisherfaces: Recognition Using Class Specific Linear Projection." IEEE Transactions on Pattern Analysis and Machine Intelligence (1997), vol. 19, pp 711-720.
+- Netzer, Y. et al. "Reading Digits in Natural Images with Unsupervised Feature Learning." Proceedings of the Workshop on Neural Information Processing Systems (2011)
+- Gareth, J. et al. "An introduction to statistical learning." Springer New York (2013), Chapter 4.4
+- Hastie, T., Tibshirani, R. and Friedman, J.H. The Elements of Statistical Learning: Data Mining, Inference, and Prediction. Springer Series in Statistics (2009), 2nd ed., Springer, New York.
+- Brunton, S.L. Data-Driven Science and Engineering: Machine Learning, Dynamical Systems, and Control. Cambridge University Press (2019), Cambridge, UK.
+
