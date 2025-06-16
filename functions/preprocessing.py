@@ -3,16 +3,41 @@ import os
 import numpy as np
 from PIL import Image
 
-def preprocessing():
-    # Path to the dataset folder. os.getcwd() gets the current working directory (in our case main.ipynb).
-    # If The dataset folder is one level up from the current working directory,  use "../" before "datasets".
-    folder_path = os.path.join(os.getcwd(), "datasets")
+def preprocessing(data_path):
+    """Preprocesses image data from the specified directory and splits it into training and testing sets.
+
+    Each GIF image in the given directory is processed as follows:
+      - Only files with the .gif extension are considered.
+      - The subject's identifier is extracted from the filename (the portion before the first dot).
+      - The image is opened, converted to grayscale ('L' mode), normalized (dividing pixel values by 255),
+        and then flattened into a 1D NumPy array.
+    
+    Images for each subject are grouped together, then shuffled and split into training and testing sets.
+    For each subject, the first 8 images (after shuffling) are used for training and the next 3 for testing.
+    Finally, both training and testing images are standardized using the training set's mean 
+    and standard deviation.
+
+    Args:
+        data_path (str): The path to the directory containing the image files.
+
+    Returns:
+        final_train (numpy.ndarray): 
+            The training data, standardized, with shape (n_train, num_features).
+        final_test (numpy.ndarray):
+            The testing data, standardized using the training set's parameters.
+        train_labels (list):
+            A list of subject identifiers corresponding to each training image.
+        test_labels (list):
+            A list of subject identifiers corresponding to each testing image.
+        test_arr (numpy.ndarray):
+            The original (non-standardized) testing data as a NumPy array.
+    """
 
     # Create a dictionary to group images by individual.
     grouped_images = {}
 
     # Load images and group them by individual.
-    for img_file in sorted(os.listdir(folder_path)):
+    for img_file in sorted(os.listdir(data_path)):
         # Check if the file is a GIF image, if not, it will be skipped.
         if not img_file.endswith(".gif"):
             continue
@@ -23,7 +48,7 @@ def preprocessing():
         subject_id = img_file.split(".")[0]
         
         # Open the image file and convert it to grayscale.
-        img_path = os.path.join(folder_path, img_file)
+        img_path = os.path.join(data_path, img_file)
         with Image.open(img_path) as img:
             # The 'L' mode is for grayscale images.
             img = img.convert("L")
@@ -94,7 +119,8 @@ def preprocessing():
     global_std  = np.std(train_arr, axis=0)
 
     # To avoid division by zero, replace any zeros in the std vector.
-    global_std[global_std == 0] = 1e-8
+    # np.where checks where global_std is zero and replaces it with a small value (1e-8).
+    global_std = np.where(global_std == 0, 1e-8, global_std)
 
     # Center the training set.
     final_train = (train_arr - train_mean) / global_std
@@ -103,15 +129,3 @@ def preprocessing():
     final_test = (test_arr - train_mean) / global_std
 
     return final_train, final_test, train_labels, test_labels, test_arr
-
-    
-# Summary printout of the preprocessing steps
-#\n is used to have a space between the output of the two print statements.
-#print("\nAfter preprocessing:")
-#print(f"Training data shape: {final_train.shape}")
-#print(f"Testing data shape: {final_test.shape}")
-
-
-# For verification, that the preprocessing worked correctly:
-# print("\nVerification of preprocessing:")
-# print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}, Std ≈ {np.std(final_train[0]):.4f}")

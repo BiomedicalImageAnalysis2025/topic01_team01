@@ -71,7 +71,8 @@ def preprocessing_split_ratio(train_ratio=0.8):
     global_std = np.std(train_arr, axis=0)
 
     # To avoid division by zero, replace any zeros in the std vector.
-    global_std[global_std == 0] = 1e-8
+    # np.where checks where global_std is zero and replaces it with a small value (1e-8).
+    global_std = np.where(global_std == 0, 1e-8, global_std)
 
     # Center the training set.
     final_train = (train_arr - train_mean) / global_std
@@ -167,7 +168,8 @@ def preprocessing_seed(seed):
     global_std  = np.std(train_arr, axis=0)
 
     # To avoid division by zero, replace any zeros in the std vector.
-    global_std[global_std == 0] = 1e-8
+    # np.where checks where global_std is zero and replaces it with a small value (1e-8).
+    global_std = np.where(global_std == 0, 1e-8, global_std)
 
     # Center the training set.
     final_train = (train_arr - train_mean) / global_std
