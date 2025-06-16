@@ -102,11 +102,6 @@ def preprocessing():
     # Apply the same transformation to the test set.
     final_test = (test_arr - train_mean) / global_std
 
-
-    # For verification, that the preprocessing worked correctly:
-    print("\nVerification of preprocessing:")
-    print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}, Std ≈ {np.std(final_train[0]):.4f}")
-
     return final_train, final_test, train_labels, test_labels, test_arr
 
     
@@ -115,3 +110,8 @@ def preprocessing():
 #print("\nAfter preprocessing:")
 #print(f"Training data shape: {final_train.shape}")
 #print(f"Testing data shape: {final_test.shape}")
+
+
+# For verification, that the preprocessing worked correctly:
+# print("\nVerification of preprocessing:")
+# print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}, Std ≈ {np.std(final_train[0]):.4f}")

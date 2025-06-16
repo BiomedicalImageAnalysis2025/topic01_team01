@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 
 # Function to perform PCA on a dataset of images
-def svd_pca(input_matrix, n_components):
+def svd_pca(input_matrix, n_components, verbose=True):
     """Compute the PCA transformation for the training set dat_matrix using SVD.
 
     Args:
@@ -47,11 +47,12 @@ def svd_pca(input_matrix, n_components):
     # we convert the absolute eigenvalues to relative values
     explained_variance_ratio = eigenvalues / np.sum(eigenvalues)
     # returning reduced data
-    print(f"Succesfully reduced Matrix from {input_matrix.shape} to {train_reduced.shape}\n")
+    if verbose:
+        print(f"Succesfully reduced Matrix from {input_matrix.shape} to {train_reduced.shape}\n")
 
     return projection_matrix, train_reduced, explained_variance_ratio
 
-def pca_transform(test_data, projection_matrix):
+def pca_transform(test_data, projection_matrix, verbose=True):
     """Transform the data matrix using the PCA projection matrix.
 
     Args:
@@ -66,6 +67,8 @@ def pca_transform(test_data, projection_matrix):
     """       
     # Project the test data onto the PCA space using the projection matrix V_reduced
     test_reduced = test_data @ projection_matrix.T
-    print(f"Succesfully transformed Matrix from {test_data.shape} to {test_reduced.shape}")
+
+    if verbose:
+        print(f"Succesfully transformed Matrix from {test_data.shape} to {test_reduced.shape}")
 
     return test_reduced
