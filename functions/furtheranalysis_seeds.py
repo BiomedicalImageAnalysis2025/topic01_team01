@@ -106,12 +106,12 @@ def preprocessing_seed(seed):
 
     # Summary printout of the preprocessing steps
     #\n is used to have a space between the output of the two print statements.
-    print("\nAfter preprocessing:")
-    print(f"Training data shape: {final_train.shape}")
-    print(f"Testing data shape: {final_test.shape}")
+    #print("\nAfter preprocessing:")
+    #print(f"Training data shape: {final_train.shape}")
+    #print(f"Testing data shape: {final_test.shape}")
 
     # For verification, that the preprocessing worked correctly:
-    print("\nVerification of preprocessing:")
-    print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}, Std ≈ {np.std(final_train[0]):.4f}")
+    #print("\nVerification of preprocessing:")
+    #print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}, Std ≈ {np.std(final_train[0]):.4f}")
 
     return final_train, train_labels, final_test, test_labels   

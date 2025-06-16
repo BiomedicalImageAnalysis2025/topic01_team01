@@ -14,7 +14,7 @@ All in-depth information about the *Data Analysis 2025* module and the given pro
 ---
 ## Background 
 
-As image analysis is becoming increasingly important in medicine and biology, our task was to familiarize ourselves with the procedures, methods and theoretical practices and apply them to the Yale Face dataset. 
+As image analysis is becoming increasingly important in medicine and biology, our task was to familiarize ourselves with the procedures, methods and theoretical practices and apply them to the *Yale Face dataset A*. 
 
 This project implements a pipeline using:
 
@@ -22,13 +22,16 @@ This project implements a pipeline using:
 - **Principal Componenet Analyis (PCA)** to reduce high-dimensional image data into a lower-dimensional subspace (Eigenfaces). 
 - **K-Nearest Neighbour (KNN)** to assign each image to the individual it belongs to.
 
-The used *Yale Face Dataset* contains 165 gray scale `.gif` files of uniform size includes multiple individuals with varying facial expressions and lighting conditions.
+The used *Yale Face Dataset A* contains 165 gray scale `.gif` files of uniform size includes multiple individuals with varying facial expressions and lighting conditions.
 
 ---
 ## Git Organization 
 
 **The repository is structured as follows:**
  
+ nicht vergessen die links zu aktualisieren 
+
+
 [datasets](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/datasets) - Contains the raw and unprocessed images files.
 
 [functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions) - Custom implementation of the *Preprocessing-*, *PCA-*, *KNN-* and *Furtheranalysis-* functions.
@@ -49,12 +52,13 @@ To review this project and to comprehend each step you need to install following
 And for plotting and reproduction of the graphics:
 
 - **seaborn**
-- **plotly**
+- **pandas**
 - **matplotlib.pyplot**
+- **skitlern.metrics**
 
 If all packages were installed you can check out the `main.ipynb`. The Jupyter Notebook file explains all the used methods in detail and visualize the results after each step. Therefore it does not provide any kind of code exept the chunks used for plottin.
 
-For deeper insights how each function was implemented and how the code works, click on [functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions). As every line of code is commented very detailed no uncertainties should be left. If so and you want to learn more about the theory of each method, sources to books and papers were also provided in each section and in the appendix.
+For deeper insights click on [functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions). As every line of code is commented very detailed no uncertainties should be left. If so and you want to learn more about the theory of each method, sources to books and papers were also provided in each section and in the appendix.
 
 BEISPIELQUELLE:
 
