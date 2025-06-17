@@ -4,34 +4,29 @@ import numpy as np
 from PIL import Image
 
 # Function to perform PCA on a dataset of images
-def svd_pca(input_matrix, n_components):
+def svd_pca(input_matrix, n_components, verbose=True):
     """Compute the PCA transformation for the training set dat_matrix using SVD.
 
     Args:
-        input_matrix : ndarray of shape (n_samples, n_features)
+        input_matrix (ndarray of shape (n_samples, n_features)):
             Training data.
-        n_components : int
+        n_components (int) : 
             Number of principal components to keep.
 
     Returns:
-        singular_values : ndarray of shape (n_components,)
-            The singular values (square roots of eigenvalues) corresponding to the principal components.    
-        projection_matrix : ndarray of shape (n_components, n_features)
-            The projection matrix containing the top principal component directions.
-        eigenvalues : ndarray of shape (n_components,)
-            The eigenvalues corresponding to the selected components (variance captured).
-        train_reduced : ndarray of shape (n_samples, n_components)
-            The training data projected onto the PCA space.
-        variance_explained : ndarray of shape (n_components,)
-            The ratio of variance explained by each principal component.
-        n_components : int
-            The number of principal components used in the PCA transformation.
+        projection_matrix (ndarray of shape (n_components, n_features)) : 
+            The PCA projection matrix.
+        train_reduced (ndarray of shape (n_samples, n_components)) : 
+            The reduced training data in the PCA space.
+        explained_variance_ratio (ndarray of shape (n_components,)) : 
+            The variance explained by each principal component.
     """
-    # VT = Contains the right singular vectors (eigenvectors) -> quadratic matrix
+    # VT = Contains the right singular vectors (eigenvectors) -> rectangular matrix (A^TA)^T	
+    # U = Contains the left singular vectors (eigenvectors) -> rectangular matrix (AA^T)
     # we use full_matrices=False to get reduced matrices
     U, S, VT = np.linalg.svd(input_matrix, full_matrices=False)
 
-    # S contains the singular values, which are the square roots of the eigenvalues
+    # S contains the singular values, which are the square roots of the eigenvalues and lie on the diagonal of matrix sigma
     # We take the first n_components singular values and corresponding vectors (projection matrix)
     singular_values = S[:n_components]
     projection_matrix  = VT[:n_components, :]
@@ -52,25 +47,28 @@ def svd_pca(input_matrix, n_components):
     # we convert the absolute eigenvalues to relative values
     explained_variance_ratio = eigenvalues / np.sum(eigenvalues)
     # returning reduced data
-    print(f"Succesfully reduced Matrix from {input_matrix.shape} to {train_reduced.shape}\n")
+    if verbose:
+        print(f"Succesfully reduced Matrix from {input_matrix.shape} to {train_reduced.shape}\n")
 
     return projection_matrix, train_reduced, explained_variance_ratio
 
-def pca_transform(test_data, projection_matrix):
+def pca_transform(test_data, projection_matrix, verbose=True):
     """Transform the data matrix using the PCA projection matrix.
 
     Args:
-        test_data: ndarray of shape (n_samples, n_features)
+        test_data (ndarray of shape (n_samples, n_features)): 
             The data to be transformed.
-        projection_matrix : ndarray of shape (n_components, n_features)
+        projection_matrix (ndarray of shape (n_components, n_features)):
             The PCA projection matrix.
 
     Returns:
-        test_reduced : ndarray of shape (n_samples, n_components)
+        test_reduced (ndarray of shape (n_samples, n_components)) : 
             The transformed data in the PCA space.
     """       
     # Project the test data onto the PCA space using the projection matrix V_reduced
     test_reduced = test_data @ projection_matrix.T
-    print(f"Succesfully transformed Matrix from {test_data.shape} to {test_reduced.shape}")
+
+    if verbose:
+        print(f"Succesfully transformed Matrix from {test_data.shape} to {test_reduced.shape}")
 
     return test_reduced

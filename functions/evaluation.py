@@ -4,7 +4,6 @@ import os
 import numpy as np
 from PIL import Image
 
-
 def preprocessing_split_ratio(train_ratio=0.8):
     # Path to the dataset folder. os.getcwd() gets the current working directory (in our case main.ipynb).
     folder_path = os.path.join(os.getcwd(), "datasets")
@@ -60,10 +59,6 @@ def preprocessing_split_ratio(train_ratio=0.8):
         test_data.extend(subject_test)
         test_labels.extend([subject] * len(subject_test))
 
-    # Output the total number of training and testing images
-    print(f"Total training images: {len(train_data)}")
-    print(f"Total testing images: {len(test_data)}")
-
     # Now Normalization & Standardization is performed
 
     # Convert lists to NumPy arrays.
@@ -75,18 +70,14 @@ def preprocessing_split_ratio(train_ratio=0.8):
     global_std = np.std(train_arr, axis=0)
 
     # To avoid division by zero, replace any zeros in the std vector.
-    global_std[global_std == 0] = 1e-8
+    # np.where checks where global_std is zero and replaces it with a small value (1e-8).
+    global_std = np.where(global_std == 0, 1e-8, global_std)
 
     # Center the training set.
     final_train = (train_arr - train_mean) / global_std
 
     # Apply the same transformation to the test set.
     final_test = (test_arr - train_mean) / global_std
-
-    # Summary printout of the preprocessing steps
-    print("\nAfter preprocessing:")
-    print(f"Training data shape: {final_train.shape}")
-    print(f"Testing data shape: {final_test.shape}")
 
     return final_train, train_labels, final_test, test_labels
 
@@ -164,11 +155,6 @@ def preprocessing_seed(seed):
         test_data.extend(subject_test)
         test_labels.extend([subject] * len(subject_test))
 
-    # output you see in main.ipynb
-    print(f"Total training images: {len(train_data)}")
-    print(f"Total testing images: {len(test_data)}")
-
-
     #  Now Normalization & Standardization is performed
 
     # Convert lists to NumPy arrays.
@@ -181,22 +167,13 @@ def preprocessing_seed(seed):
     global_std  = np.std(train_arr, axis=0)
 
     # To avoid division by zero, replace any zeros in the std vector.
-    global_std[global_std == 0] = 1e-8
+    # np.where checks where global_std is zero and replaces it with a small value (1e-8).
+    global_std = np.where(global_std == 0, 1e-8, global_std)
 
     # Center the training set.
     final_train = (train_arr - train_mean) / global_std
 
     # Apply the same transformation to the test set.
     final_test = (test_arr - train_mean) / global_std
-
-    # Summary printout of the preprocessing steps
-    #\n is used to have a space between the output of the two print statements.
-    print("\nAfter preprocessing:")
-    print(f"Training data shape: {final_train.shape}")
-    print(f"Testing data shape: {final_test.shape}")
-
-    # For verification, that the preprocessing worked correctly:
-    print("\nVerification of preprocessing:")
-    print(f"First training image: Mean ≈ {np.mean(final_train[0]):.4f}, Std ≈ {np.std(final_train[0]):.4f}")
 
     return final_train, train_labels, final_test, test_labels
