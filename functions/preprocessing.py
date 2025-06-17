@@ -3,7 +3,7 @@ import os
 import numpy as np
 from PIL import Image
 
-def preprocessing(data_path):
+def preprocessing(data_path, seed, train_ratio= 0.7, verbose=True):
     """Preprocesses image data from the specified directory and splits it into training and testing sets.
 
     Each GIF image in the given directory is processed as follows:
@@ -19,6 +19,8 @@ def preprocessing(data_path):
 
     Args:
         data_path (str): The path to the directory containing the image files.
+        seed():
+        train_ratio():
 
     Returns:
         final_train (numpy.ndarray): 
@@ -68,7 +70,7 @@ def preprocessing(data_path):
         grouped_images[subject_id].append(flat_image)  
 
     # Set a random seed for reproducibility (output is the same every time).
-    np.random.seed(83)
+    np.random.seed(seed)
 
     # Prepare separate lists for training and testing images.
     train_data = []
@@ -86,10 +88,13 @@ def preprocessing(data_path):
         # Shuffle images in-place with NumPy's shuffle.
         # This shuffling is along axis 0, meaning it shuffles the rows (images) randomly within the array.
         np.random.shuffle(images)
+
+        # Calculate the split index based on the train_ratio
+        split_index = int(len(images) * train_ratio)
         
-        # Split into training (first 8) and testing (last 3)
-        subject_train = images[:8]
-        subject_test = images[8:11]
+        # Split into training and testing images
+        subject_train = images[:split_index]
+        subject_test = images[split_index:]
 
         # Append images and corresponding labels
         train_data.extend(subject_train)
@@ -102,9 +107,10 @@ def preprocessing(data_path):
         test_data.extend(subject_test)
         test_labels.extend([subject] * len(subject_test))
 
-    # output you see in main.ipynb
-    print(f"Total training images: {len(train_data)}")
-    print(f"Total testing images: {len(test_data)}")
+    if verbose:
+        # output you see in main.ipynb
+        print(f"Total training images: {len(train_data)}")
+        print(f"Total testing images: {len(test_data)}")
 
 
     #  Now Normalization & Standardization is performed
@@ -128,4 +134,4 @@ def preprocessing(data_path):
     # Apply the same transformation to the test set.
     final_test = (test_arr - train_mean) / global_std
 
-    return final_train, final_test, train_labels, test_labels, test_arr
+    return final_train, train_labels, final_test, test_labels, test_arr
