@@ -3,17 +3,19 @@ import os
 import numpy as np
 from PIL import Image
 
-def knn_classifier(train_reduced, train_labels, test_reduced,test_labels, k, verbose=True):
+def knn_classifier(train_reduced, train_labels, test_reduced, test_labels, k, verbose=True):
     """
     k-Nearest Neighbors (KNN) classifier implementation.
 
     Args:
-      train_data (np.ndarray):
+      train_reduced (np.ndarray):
         2D array of training data points, each row is a data point.
-      labels (list or np.ndarray):
+      train_labels (list or np.ndarray):
         List of labels for the training data.
-      test_data (np.ndarray):
+      test_reduced (np.ndarray):
         2D array of test data points.
+      test_labels(list or np.ndarray):
+        List of labels for the test data.
       k (int):
         Number of nearest neighbors to consider.
       verbose (boolean):

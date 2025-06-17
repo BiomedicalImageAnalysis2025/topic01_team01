@@ -4,7 +4,6 @@ import os
 import numpy as np
 from PIL import Image
 
-
 def preprocessing_split_ratio(train_ratio=0.8):
     # Path to the dataset folder. os.getcwd() gets the current working directory (in our case main.ipynb).
     folder_path = os.path.join(os.getcwd(), "datasets")
