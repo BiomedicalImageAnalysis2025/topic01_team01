@@ -71,4 +71,3 @@ Belhumeur, P.N., Hespanha, J.P. and Kriegman, D. "Eigenfaces vs. Fisherfaces: Re
 - Gareth, J. et al. "An introduction to statistical learning." Springer New York (2013), Chapter 4.4
 - Hastie, T., Tibshirani, R. and Friedman, J.H. The Elements of Statistical Learning: Data Mining, Inference, and Prediction. Springer Series in Statistics (2009), 2nd ed., Springer, New York.
 - Brunton, S.L. Data-Driven Science and Engineering: Machine Learning, Dynamical Systems, and Control. Cambridge University Press (2019), Cambridge, UK.
-
