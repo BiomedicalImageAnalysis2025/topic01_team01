@@ -2,6 +2,7 @@
 import os
 import numpy as np
 from PIL import Image
+from collections import defaultdict
 
 def knn_classifier(train_reduced, train_labels, test_reduced, test_labels, k, verbose=True):
     """
@@ -38,13 +39,7 @@ def knn_classifier(train_reduced, train_labels, test_reduced, test_labels, k, ve
         # Retrieve the labels for these k nearest neighbors.
         k_labels = [train_labels[i] for i in k_indices]
         
-         # Get the labels of the k nearest neighbors.
-        #counts, values = np.unique(k_labels, return_counts = True)
-
-        # Get the label with the highest count.
-        #predicted_label = values[np.argmax(counts)]
         predicted_label = max(set(k_labels), key=k_labels.count)
-        
         predictions.append(predicted_label)
 
     # ... == ... creates a Boolean NumPy array where each element is True if the predicted label matches the true label, and False otherwise
