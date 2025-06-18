@@ -48,7 +48,7 @@ def svd_pca(input_matrix, n_components, verbose=True):
     explained_variance_ratio = eigenvalues / np.sum(eigenvalues)
     # returning reduced data
     if verbose:
-        print(f"Succesfully reduced Matrix from {input_matrix.shape} to {train_reduced.shape}\n")
+        print(f"\nSuccesfully reduced Matrix from {input_matrix.shape} to {train_reduced.shape}\n")
 
     return projection_matrix, train_reduced, explained_variance_ratio
 
