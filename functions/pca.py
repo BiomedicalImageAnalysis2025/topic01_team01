@@ -5,22 +5,24 @@ from PIL import Image
 
 # Function to perform PCA on a dataset of images
 def svd_pca(input_matrix, n_components, verbose=True):
+
     """Compute the PCA transformation for the training set dat_matrix using SVD.
 
-    Args:
-        input_matrix (ndarray of shape (n_samples, n_features)):
-            Training data.
-        n_components (int) : 
-            Number of principal components to keep.
+        Args:
+            input_matrix (ndarray of shape (n_samples, n_features)):
+                Training data.
+            n_components (int) : 
+                Number of principal components to keep.
 
-    Returns:
-        projection_matrix (ndarray of shape (n_components, n_features)) : 
-            The PCA projection matrix.
-        train_reduced (ndarray of shape (n_samples, n_components)) : 
-            The reduced training data in the PCA space.
-        explained_variance_ratio (ndarray of shape (n_components,)) : 
-            The variance explained by each principal component.
+        Returns:
+            projection_matrix (ndarray of shape (n_components, n_features)) : 
+                The PCA projection matrix.
+            train_reduced (ndarray of shape (n_samples, n_components)) : 
+                The reduced training data in the PCA space.
+            explained_variance_ratio (ndarray of shape (n_components,)) : 
+                The variance explained by each principal component.
     """
+
     # VT = Contains the right singular vectors (eigenvectors) -> rectangular matrix (A^TA)^T	
     # U = Contains the left singular vectors (eigenvectors) -> rectangular matrix (AA^T)
     # we use full_matrices=False to get reduced matrices
