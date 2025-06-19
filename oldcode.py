@@ -149,3 +149,40 @@ for idx, mis_idx in enumerate(misclassified_indices[:num_to_plot]):
     plt.axis('off')
 plt.suptitle("Misclassified Test Images", fontsize=16)
 plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+
+
+# Accuracy vs. PC
+
+from functions.preprocessing import preprocessing
+from functions.knn import knn_classifier
+
+# How does the number of principal components affect the accuracy of the model?
+pc_range = np.arange(1, 30, 1)
+
+accuracies = []
+
+for pc in pc_range:
+    final_train, train_labels, final_test, test_labels, test_arr = preprocessing(folder_path, seed, split_tt_ratio, verbose=False)
+
+    projection_matrix, train_reduced, explained_variance_ratio = svd_pca(final_train, pc, verbose=False)
+
+    test_reduced = pca_transform(final_test, projection_matrix, verbose=False)
+
+    predictions = knn_classifier(train_reduced, train_labels, test_reduced, test_labels, k=4, verbose=False)
+    accuracy = np.mean(np.array(predictions) == np.array(test_labels))
+    accuracies.append(accuracy)
+
+
+# Plot the accuracies
+df = pd.DataFrame({
+    'Amount of Principal Components': pc_range,
+    'Accuracy (%)': np.array(accuracies) * 100
+})
+
+sns.set_theme(style="whitegrid")
+
+plt.figure(figsize=(11, 6))
+sns.scatterplot(data=df, x='Amount of Principal Components', y='Accuracy (%)', marker='o')
+plt.title("Accuracy of KNN Classifier with Different Amounts of Principal Components")
+plt.ylim(0, 100)
+plt.tight_layout()
