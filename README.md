@@ -54,7 +54,10 @@ And for plotting and reproduction of the graphics:
 - **seaborn**
 - **pandas**
 - **matplotlib.pyplot**
-- **skitlern.metrics**
+- **sklearn**
+    - `.metrics`
+    - `.neighbours`
+    - `.model_selection`
 
 If all packages were installed you can check out the `main.ipynb`. The Jupyter Notebook file explains all the used methods in detail and visualize the results after each step. Therefore it does not provide any kind of code exept the chunks used for plotting.
 
