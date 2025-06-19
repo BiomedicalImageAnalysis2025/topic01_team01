@@ -4,7 +4,7 @@ import numpy as np
 def datasetB_loading():
 
     # Load the .mat file
-    dataset_B = scipy.io.loadmat("C:datasetB\\YaleB_32x32.mat")
+    dataset_B = scipy.io.loadmat("C:dataB\\YaleB_32x32.mat")
 
     # store images in images and their labels in true_label_B
     images = dataset_B["fea"]
