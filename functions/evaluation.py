@@ -6,7 +6,7 @@ from PIL import Image
 
 def preprocessing_split_ratio(train_ratio=0.8):
     # Path to the dataset folder. os.getcwd() gets the current working directory (in our case main.ipynb).
-    folder_path = os.path.join(os.getcwd(), "datasets")
+    folder_path = os.path.join(os.getcwd(), "dataA")
 
     # Create a dictionary to group images by individual.
     grouped_images = {}
@@ -84,7 +84,7 @@ def preprocessing_split_ratio(train_ratio=0.8):
 def preprocessing_seed(seed):
     # Path to the dataset folder. os.getcwd() gets the current working directory (in our case main.ipynb).
     # If The dataset folder is one level up from the current working directory,  use "../" before "datasets".
-    folder_path = os.path.join(os.getcwd(), "datasets")
+    folder_path = os.path.join(os.getcwd(), "dataA")
 
     # Create a dictionary to group images by individual.
     grouped_images = {}
