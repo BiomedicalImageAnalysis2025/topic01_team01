@@ -6,13 +6,13 @@ def datasetB_loading():
     # Load the .mat file
     dataset_B = scipy.io.loadmat("/Users/matspanke/Documents/GitHub/topic01_team01/dataB/YaleB_32x32.mat")
 
-    # store images in images and their labels in true_label_B
+    # Store images in images and their labels in true_label_B
     images = dataset_B["fea"]
     true_labels_B = dataset_B["gnd"]
 
     images_B = []
 
-    # reshape all images and store them in images_B 
+    # Reshape all images and store them in images_B 
     for i in range(0,2414): 
         image_reshaped = images[i].reshape(32, 32)
         images_B.append(image_reshaped)

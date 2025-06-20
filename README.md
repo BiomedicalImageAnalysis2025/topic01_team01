@@ -29,12 +29,14 @@ The used *Yale Face Dataset A* contains 165 gray scale `.gif` files of uniform s
 
 **The repository is structured as follows:**
  
- nicht vergessen die links zu aktualisieren 
+ ***nicht vergessen die links zu aktualisieren ***
 
 
-[data](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/datasets) - Contains the raw and unprocessed images files.
+[dataA](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/Mats/dataA) - Contains the raw and unprocessed images files of the original *Yale Face Dataset A*.
 
-[functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions) - Custom implementation of the *Preprocessing-*, *PCA-*, *KNN-* and *Evaluation-* functions.
+[dataB](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/Mats/dataB) - Contains the raw and unprocessed images files of the *Yale Face Dataset B* for further analysis.
+
+[functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions) - Custom implementation of the *Preprocessing-*, *PCA-*, *KNN-*, *Evaluation-* and *Furtheranalyis* functions.
 
 [main.ipynb](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/blob/main/main.ipynb)- The jupyter notebook explains all the methods including the results of each step with visualizations and graphics.
 
@@ -45,16 +47,17 @@ The used *Yale Face Dataset A* contains 165 gray scale `.gif` files of uniform s
 
 To review this project and to comprehend each step you need to install following packages to run the code on your device:
 
-- **numpy**
-- **os**
-- **PIL**
+- `numpy`
+- `os`
+- `PIL`
+- `scipy.io`
 
 And for plotting and reproduction of the graphics:
 
-- **seaborn**
-- **pandas**
-- **matplotlib.pyplot**
-- **sklearn**
+- `seaborn`
+- `pandas`
+- `matplotlib.pyplot`
+- `sklearn`
     - `.metrics`
     - `.neighbours`
     - `.model_selection`
