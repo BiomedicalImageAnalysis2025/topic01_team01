@@ -130,27 +130,6 @@ fig.update_layout(title={
 )
 fig.show()
 
-# missclassified images plot with matplotlib
-
-# Determine misclassified indices
-#zipping the true labels and predictions to find misclassified images
-misclassified_indices = [i for i, (true, pred) in enumerate(zip(test_labels, predictions)) if true != pred]
-# Print the number of misclassified images and their indices
-print(f"Total misclassified images found: {len(misclassified_indices)}")
-print(misclassified_indices)
-# Let's plot up to 16 misclassified images (or fewer if not available)
-num_to_plot = min(16, len(misclassified_indices))
-# for this a plot with subplots is created
-plt.figure(figsize=(12, 12))
-for idx, mis_idx in enumerate(misclassified_indices[:num_to_plot]):
-    plt.subplot(4, 4, idx+1)
-    plt.imshow(original_shape_test_images[mis_idx], cmap='gray') # assuming grayscale images
-    plt.title(f"True: {test_labels[mis_idx]}\nPredicted: {predictions[mis_idx]}")
-    plt.axis('off')
-plt.suptitle("Misclassified Test Images", fontsize=16)
-plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-
-
 # Accuracy vs. PC
 
 from functions.preprocessing import preprocessing
@@ -186,3 +165,83 @@ sns.scatterplot(data=df, x='Amount of Principal Components', y='Accuracy (%)', m
 plt.title("Accuracy of KNN Classifier with Different Amounts of Principal Components")
 plt.ylim(0, 100)
 plt.tight_layout()
+
+# Confusion matrix for datset b
+
+# Convert them to NumPy arrays if they aren’t already:
+true_labels_B = np.array(test_labels_B)
+pred_labels_B = np.array(predictions_B)
+
+# Compute the confusion matrix. It will have shape (n_classes, n_classes)
+cm_B = confusion_matrix(true_labels_B, pred_labels_B)
+
+#Determine unique class labels for better tick labeling
+classes_labels_B = np.unique(np.concatenate((true_labels_B, pred_labels_B)))
+
+# Create an annotation matrix with empty strings where value is 0
+annot = np.where(cm_B != 0, cm_B.astype(str), "")
+
+plt.figure(figsize=(13, 8))
+heatmap = sns.heatmap(cm_B, cmap="Blues", xticklabels=classes_labels_B, yticklabels=classes_labels_B, annot = annot, fmt="", cbar=False)
+
+# Customize the colorbar annotations
+#cbar_B = heatmap.collections[0].colorbar
+# Set specific tick positions 
+# Labelpad is used to adjust the distance of the label from the colorbar
+#cbar_B.set_label("Predictions per Subject", rotation=270, labelpad=30)
+
+#cbar_B.set_ticks(range(0,18))
+
+plt.xlabel('\nPredicted Labels per Subject')
+plt.ylabel('True Labels per Subject\n')
+plt.title(label=f"\nConfusion Matrix for KNN Classification (k = {k})\n", fontweight='bold')
+plt.show()
+
+# extrat metadata from dataset A for color of PC plots
+
+def metadata(data_path):
+
+    exp_cond = []
+
+    for img_file in os.listdir(data_path):
+        # Check if the file is a GIF image, if not, it will be skipped.
+        if not img_file.endswith(".gif"):
+            continue
+        # Extract person’s identifier from the filename.
+        # I our case, the identifier is the first part of the filename before the dot.
+        # [0] splits the string at the dot and takes the first part.
+        exp_cond_single = img_file.split(".")[1]
+        exp_cond.append(exp_cond_single)
+
+        # Separate lists
+    condition_meta = [f for f in exp_cond if "light" in f.lower()]
+    rest_meta = [f for f in exp_cond if "light" not in f.lower()]
+
+    # Create DataFrame
+    metadata_A = pd.DataFrame({
+        "light_related": pd.Series(condition_meta),
+        "others": pd.Series(rest_meta)
+    })
+
+    return metadata_A
+
+def metadata_sub(data_path):
+
+    subject_id = []
+
+    for img_file in os.listdir(data_path):
+        # Check if the file is a GIF image, if not, it will be skipped.
+        if not img_file.endswith(".gif"):
+            continue
+        # Extract person’s identifier from the filename.
+        # I our case, the identifier is the first part of the filename before the dot.
+        # [0] splits the string at the dot and takes the first part.
+        subject_id_sing = img_file.split(".")[0]
+        subject_id.append(subject_id_sing)
+    
+    # Create DataFrame
+    metadata_sub = pd.DataFrame({
+        "Subject ID": subject_id
+    })
+
+    return metadata_sub
