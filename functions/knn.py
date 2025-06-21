@@ -2,7 +2,7 @@
 import os
 import numpy as np
 from PIL import Image
-from collections import defaultdict
+from sklearn.neighbors import KDTree
 
 def knn_classifier(train_reduced, train_labels, test_reduced, test_labels, k, verbose=True):
     """
@@ -25,19 +25,20 @@ def knn_classifier(train_reduced, train_labels, test_reduced, test_labels, k, ve
     Returns:
       list: Predicted labels for each test data point.
     """
+    # Fit a KDTree to the training data for efficient nearest neighbor search.
+    # KDTree is a data structure that allows for efficient nearest neighbor searches.
+    tree = KDTree(train_reduced,leaf_size=10)
+
+    # Query the KDTree for the k nearest neighbors of each test point.
+    distances, indices = tree.query(test_reduced, k=k)
+
     predictions = []
     # Loop over each test sample
-    for test_point in test_reduced:
-        # Compute Euclidean distances between the test point and all training samples.
-        # axis=1 ensures that we compute the distance for each row (sample) through the columns (features).
-        # The subtraction is vectorized over the training data for efficiency.
-        distances = np.sqrt(np.sum((train_reduced - test_point) ** 2, axis=1))
+    for idx_list in indices:
         
-        # Retrieve the indices of the k smallest distances.
-        k_indices = np.argsort(distances)[:k]
-
+        #idx_list is a list of indices of the k nearest neighbors in the training set
         # Retrieve the labels for these k nearest neighbors.
-        k_labels = [train_labels[i] for i in k_indices]
+        k_labels = [train_labels[i] for i in idx_list]
         
         predicted_label = max(set(k_labels), key=k_labels.count)
         predictions.append(predicted_label)
@@ -48,5 +49,15 @@ def knn_classifier(train_reduced, train_labels, test_reduced, test_labels, k, ve
     accuracy = np.mean(np.array(predictions) == np.array(test_labels))
     # 100:.2 formats the accuracy as a percentage with two decimal places
     if verbose:
-      print(f"k_NN Classification Accuracy: {accuracy * 100:.2f}%")
-    return predictions
+      print(f"k-NN Classification Accuracy: {accuracy * 100:.2f}%")
+    return predictions, accuracy
+
+  # IMPORTNAT NOTE:
+
+  # Before using KDtrees, we computed the Euclidean distance manually
+  # As we need faster perfromance, especially to create complex plots, we use KDtrees
+
+  # Compute Euclidean distances between the test point and all training samples.
+  # axis=1 ensures that we compute the distance for each row (sample) through the columns (features).
+  # The subtraction is vectorized over the training data for efficiency.
+  # distances = np.sqrt(np.sum((train_reduced - test_point) ** 2, axis=1))
