@@ -48,5 +48,5 @@ def knn_classifier(train_reduced, train_labels, test_reduced, test_labels, k, ve
     accuracy = np.mean(np.array(predictions) == np.array(test_labels))
     # 100:.2 formats the accuracy as a percentage with two decimal places
     if verbose:
-      print(f"k-NN Classification Accuracy: {accuracy * 100:.2f}%")
+      print(f"k_NN Classification Accuracy: {accuracy * 100:.2f}%")
     return predictions
