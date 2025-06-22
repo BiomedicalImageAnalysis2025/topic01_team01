@@ -46,10 +46,11 @@ def svd_pca(input_matrix, n_components, verbose=True):
     # we need to divide the eigenvalues by the total sum of eigenvalues to get the explained variance ratio
     # we convert the absolute eigenvalues to relative values
     explained_variance_ratio = eigenvalues / np.sum(eigenvalues)
+
     # returning reduced data
     if verbose:
-        print(f"\nSuccesfully reduced matrix from {input_matrix.shape} to {train_reduced.shape}\n")
-
+        print(f"\nSuccesfully reduced Matrix from {input_matrix.shape} to {train_reduced.shape}\n")
+        
     return projection_matrix, train_reduced, explained_variance_ratio
 
 def pca_transform(test_data, projection_matrix, verbose=True):
@@ -69,6 +70,6 @@ def pca_transform(test_data, projection_matrix, verbose=True):
     test_reduced = test_data @ projection_matrix.T
 
     if verbose:
-        print(f"Succesfully transformed matrix from {test_data.shape} to {test_reduced.shape}")
+        print(f"Succesfully transformed Matrix from {test_data.shape} to {test_reduced.shape}")
 
     return test_reduced

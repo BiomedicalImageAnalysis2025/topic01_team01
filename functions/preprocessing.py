@@ -39,7 +39,7 @@ def preprocessing(data_path, seed, train_ratio= 0.7, verbose=True):
     grouped_images = {}
 
     # Load images and group them by individual.
-    for img_file in sorted(os.listdir(data_path)):
+    for img_file in os.listdir(data_path):
         # Check if the file is a GIF image, if not, it will be skipped.
         if not img_file.endswith(".gif"):
             continue
