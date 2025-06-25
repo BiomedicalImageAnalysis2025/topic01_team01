@@ -30,7 +30,7 @@ def knn_classifier(train_reduced, train_labels, test_reduced, test_labels, k, ve
     tree = KDTree(train_reduced,leaf_size=10)
 
     # Query the KDTree for the k nearest neighbors of each test point.
-    distances, indices = tree.query(test_reduced, k=k, workers = -1)
+    distances, indices = tree.query(test_reduced, k=k)
 
     predictions = []
     # Loop over each test sample
