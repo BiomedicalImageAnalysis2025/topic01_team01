@@ -20,7 +20,7 @@ This project implements a pipeline using:
 
 - **Hold-Out Validation** to split the dataset into training/test subsets.
 - **Principal Componenet Analyis (PCA)** to reduce high-dimensional image data into a lower-dimensional subspace (Eigenfaces). 
-- **K-Nearest Neighbour (KNN)** to assign each image to the individual it belongs to.
+- **K-Nearest Neighbour (K<sub>NN</sub>)** to assign each image to the individual it belongs to.
 
 The used *Yale Face Dataset A* contains 165 gray scale `.gif` files of uniform size includes multiple individuals with varying facial expressions and lighting conditions.
 
@@ -32,9 +32,9 @@ The used *Yale Face Dataset A* contains 165 gray scale `.gif` files of uniform s
  ***nicht vergessen die links zu aktualisieren ***
 
 
-[dataA](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/Mats/dataA) - Contains the raw and unprocessed images files of the original *Yale Face Dataset A*.
+[dataA](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/dataA) - Contains the raw and unprocessed images files of the original *Yale Face Dataset A*.
 
-[dataB](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/Mats/dataB) - Contains the raw and unprocessed images files of the *Yale Face Dataset B* for further analysis.
+[dataB](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/dataB) - Contains the raw and unprocessed images files of the *Yale Face Dataset B* for further analysis.
 
 [functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions) - Custom implementation of the *Preprocessing-*, *PCA-*, *KNN-*, *Evaluation-* and *Furtheranalyis* functions.
 
