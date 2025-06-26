@@ -245,3 +245,32 @@ def metadata_sub(data_path):
     })
 
     return metadata_sub
+
+#2 PC plots
+
+# Example PCA DataFrame with first few components
+df_first_6 = pd.DataFrame(train_reduced[:, :6], columns=["PC1", "PC2", "PC3", "PC4","PC5","PC6"])
+
+
+combinations_2 = [("PC1", "PC2"),("PC4", "PC6")]
+
+sns.set_theme(style="ticks")
+
+fig, axes = plt.subplots(2, 1, figsize=(6, 8))
+#axes = axes.flatten()  # Flatten to make iteration easy
+
+for ax, (x, y) in zip(axes, combinations_2):
+    sns.scatterplot(
+        data=df_first_6,
+        x=x,
+        y=y,
+        s=60,
+        edgecolor="k",
+        alpha = 0.6,
+        ax=ax
+    )
+    ax.set_title(f"\n{x} vs {y}\n", fontweight = "bold")
+
+plt.tight_layout(h_pad=2.0)
+plt.savefig("PCplots.svg")
+plt.show()
