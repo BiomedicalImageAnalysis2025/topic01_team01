@@ -71,11 +71,10 @@ For deeper insights click on [functions](https://github.com/BiomedicalImageAnaly
 
 ## Literature 
 
-- Gerbrands, J.J. "On the relationships between SVD, KLT and PCA." Pattern Recognition (1981), vol. 14, issues 1-6, pp 375-381
-Belhumeur, P.N., Hespanha, J.P. and Kriegman, D. "Eigenfaces vs. Fisherfaces: Recognition Using Class Specific Linear Projection." IEEE Transactions on Pattern Analysis and Machine Intelligence (1997), vol. 19, pp 711-720.
-- Netzer, Y. et al. "Reading Digits in Natural Images with Unsupervised Feature Learning." Proceedings of the Workshop on Neural Information Processing Systems (2011)
-- Gareth, J. et al. "An introduction to statistical learning." Springer New York (2013), Chapter 4.4
-- Hastie, T., Tibshirani, R. and Friedman, J.H. The Elements of Statistical Learning: Data Mining, Inference, and Prediction. Springer Series in Statistics (2009), 2nd ed., Springer, New York.
-- Brunton, S.L. Data-Driven Science and Engineering: Machine Learning, Dynamical Systems, and Control. Cambridge University Press (2019), Cambridge, UK.
+- Belhumeur, P.N., Hespanha, J.P., & Kriegman, D.J. (1997). Eigenfaces vs. Fisherfaces: recognition using class specific linear projection. IEEE Transactions on Pattern Analysis and Machine Intelligence, 19(7), 711–720. https://doi.org/10.1109/34.598228
+- Brunton, S.L. (2019). Data-Driven Science and Engineering. Cambridge University Press.
+- Gareth, J., Witten, D., Hastie, T., & Tibshirani, R. (2013). An introduction to statistical learning. Springer, New York. Kapitel 4.4.
+- Gerbrands, J.J. (1981). On the relationships between SVD, KLT and PCA. Pattern Recognition, 14(1-6), 375–381.
+- Hastie, T., Tibshirani, R., & Friedman, J.H. (2009). The Elements of Statistical Learning. 2nd ed., Springer, New York.
+- Netzer, Y., Wang, T., Coates, A., Bissacco, A., Wu, B., & Ng, A.Y. (2011). Reading digits in natural images with unsupervised feature learning. Proceedings of the Workshop on Neural Information Processing Systems.
 - Turk, M., & Pentland, A. (1991). Eigenfaces for recognition. Journal of Cognitive Neuroscience, 3(1), 71–86.
-- P. N. Belhumeur, J. P. Hespanha and D. J. Kriegman, "Eigenfaces vs. Fisherfaces: recognition using class specific linear projection," in IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 19, no. 7, pp. 711-720, July 1997, doi: 10.1109/34.598228.
