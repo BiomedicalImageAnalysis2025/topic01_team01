@@ -269,7 +269,7 @@ for ax, (x, y) in zip(axes, combinations_2):
         alpha = 0.6,
         ax=ax
     )
-    ax.set_title(f"\n{x} vs {y}\n", fontweight = "bold")
+    #ax.set_title(f"\n{x} vs {y}\n", fontweight = "bold")
 
 plt.tight_layout(h_pad=2.0)
 plt.savefig("PCplots.svg")
