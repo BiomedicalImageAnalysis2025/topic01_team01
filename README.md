@@ -20,7 +20,7 @@ This project implements a pipeline using:
 
 - **Hold-Out Validation** to split the dataset into training/test subsets.
 - **Principal Componenet Analyis (PCA)** to reduce high-dimensional image data into a lower-dimensional subspace (Eigenfaces). 
-- **K-Nearest Neighbour (KNN)** to assign each image to the individual it belongs to.
+- **K-Nearest Neighbour (K<sub>NN</sub>)** to assign each image to the individual it belongs to.
 
 The used *Yale Face Dataset A* contains 165 gray scale `.gif` files of uniform size includes multiple individuals with varying facial expressions and lighting conditions.
 
@@ -29,12 +29,10 @@ The used *Yale Face Dataset A* contains 165 gray scale `.gif` files of uniform s
 
 **The repository is structured as follows:**
  
- ***nicht vergessen die links zu aktualisieren ***
 
+[dataA](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/dataA) - Contains the raw and unprocessed images files of the original *Yale Face Dataset A*.
 
-[dataA](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/Mats/dataA) - Contains the raw and unprocessed images files of the original *Yale Face Dataset A*.
-
-[dataB](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/Mats/dataB) - Contains the raw and unprocessed images files of the *Yale Face Dataset B* for further analysis.
+[dataB](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/dataB) - Contains the raw and unprocessed images files of the *Yale Face Dataset B* for further analysis.
 
 [functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions) - Custom implementation of the *Preprocessing-*, *PCA-*, *KNN-*, *Evaluation-* and *Furtheranalyis* functions.
 
@@ -68,14 +66,25 @@ For deeper insights click on [functions](https://github.com/BiomedicalImageAnaly
 
 
 ---
+# Usage of AI and Workload Splitting
+
+AI was used throughout the project as support for validating results, debugging or setting further incentives. However, **no** entire sections were taken over and each line was commented and retraced independently. <br> 
+Tools used were:
+
+- `ChatGPT`
+- `Github Copilot`
+-  `Copilot`
+
+The aim of the group was for everyone to implement each function independently so that they could be put together later and any errors made by a member could be corrected. Subsequent tasks, such as creating the plots and the further analysis, were divided between Fedor and Mats, while Kimia and Nicolas were already working on the scientific poster.
+
+---
 
 ## Literature 
 
-- Gerbrands, J.J. "On the relationships between SVD, KLT and PCA." Pattern Recognition (1981), vol. 14, issues 1-6, pp 375-381
-Belhumeur, P.N., Hespanha, J.P. and Kriegman, D. "Eigenfaces vs. Fisherfaces: Recognition Using Class Specific Linear Projection." IEEE Transactions on Pattern Analysis and Machine Intelligence (1997), vol. 19, pp 711-720.
-- Netzer, Y. et al. "Reading Digits in Natural Images with Unsupervised Feature Learning." Proceedings of the Workshop on Neural Information Processing Systems (2011)
-- Gareth, J. et al. "An introduction to statistical learning." Springer New York (2013), Chapter 4.4
-- Hastie, T., Tibshirani, R. and Friedman, J.H. The Elements of Statistical Learning: Data Mining, Inference, and Prediction. Springer Series in Statistics (2009), 2nd ed., Springer, New York.
-- Brunton, S.L. Data-Driven Science and Engineering: Machine Learning, Dynamical Systems, and Control. Cambridge University Press (2019), Cambridge, UK.
+- Belhumeur, P.N., Hespanha, J.P., & Kriegman, D.J. (1997). Eigenfaces vs. Fisherfaces: recognition using class specific linear projection. IEEE Transactions on Pattern Analysis and Machine Intelligence, 19(7), 711–720. https://doi.org/10.1109/34.598228
+- Brunton, S.L. (2019). Data-Driven Science and Engineering. Cambridge University Press.
+- Gareth, J., Witten, D., Hastie, T., & Tibshirani, R. (2013). An introduction to statistical learning. Springer, New York. Kapitel 4.4.
+- Gerbrands, J.J. (1981). On the relationships between SVD, KLT and PCA. Pattern Recognition, 14(1-6), 375–381.
+- Hastie, T., Tibshirani, R., & Friedman, J.H. (2009). The Elements of Statistical Learning. 2nd ed., Springer, New York.
+- Netzer, Y., Wang, T., Coates, A., Bissacco, A., Wu, B., & Ng, A.Y. (2011). Reading digits in natural images with unsupervised feature learning. Proceedings of the Workshop on Neural Information Processing Systems.
 - Turk, M., & Pentland, A. (1991). Eigenfaces for recognition. Journal of Cognitive Neuroscience, 3(1), 71–86.
-- P. N. Belhumeur, J. P. Hespanha and D. J. Kriegman, "Eigenfaces vs. Fisherfaces: recognition using class specific linear projection," in IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 19, no. 7, pp. 711-720, July 1997, doi: 10.1109/34.598228.
