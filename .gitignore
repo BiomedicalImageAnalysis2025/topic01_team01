@@ -1,15 +1,1 @@
-# Ignore a specific file
-#secret.txt
-
-# Ignore all `.log` files
-#*.log
-
-# Ignore a folder and everything inside
-#temp/
-
-# Ignore all `.env` files except `.env.example`
-#*.env
-#!.env.example
 .DS_Store
-
-
