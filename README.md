@@ -66,7 +66,7 @@ For deeper insights click on [functions](https://github.com/BiomedicalImageAnaly
 
 
 ---
-# Usage of AI and Workload Splitting
+## Usage of AI and Workload Splitting
 
 AI was used throughout the project as support for validating results, debugging or setting further incentives. However, **no** entire sections were taken over and each line was commented and retraced independently. <br> 
 Tools used were:
