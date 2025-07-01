@@ -30,9 +30,9 @@ The used *Yale Face Dataset A* contains 165 gray scale `.gif` files of uniform s
 **The repository is structured as follows:**
  
 
-[dataA](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/dataA) - Contains the raw and unprocessed images files of the original *Yale Face Dataset A*.
+[dataA](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/dataA) - Contains the raw and unprocessed images files of the original *Yale Face Dataset A*.
 
-[dataB](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/dataB) - Contains the raw and unprocessed images files of the *Yale Face Dataset B* for further analysis.
+[dataB](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/dataB) - Contains the raw and unprocessed images files of the *Yale Face Dataset B* for further analysis.
 
 [functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions) - Custom implementation of the *Preprocessing-*, *PCA-*, *KNN-*, *Evaluation-* and *Furtheranalyis* functions.
 
