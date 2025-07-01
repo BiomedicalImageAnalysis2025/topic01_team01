@@ -29,8 +29,6 @@ The used *Yale Face Dataset A* contains 165 gray scale `.gif` files of uniform s
 
 **The repository is structured as follows:**
  
- ***nicht vergessen die links zu aktualisieren ***
-
 
 [dataA](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/dataA) - Contains the raw and unprocessed images files of the original *Yale Face Dataset A*.
 
@@ -66,6 +64,17 @@ If all packages were installed you can check out the `main.ipynb`. The Jupyter N
 
 For deeper insights click on [functions](https://github.com/BiomedicalImageAnalysis2025/topic01_team01/tree/main/functions). As every line of code is commented very detailed no uncertainties should be left. If so and you want to learn more about the theory of each method, sources to books and papers were also provided in each section and in the appendix.
 
+
+---
+# Usage of AI and Workload Splitting
+
+AI was used throughout the project as support for validating results, debugging or setting further incentives. However, **no** entire sections were taken over and each line was commented and retraced independently. <br> 
+Tools used were:
+- `ChatGPT`
+- `Github Copilot`
+-  `Copilot`
+
+The aim of the group was for everyone to implement each function independently so that they could be put together later and any errors made by a member could be corrected. Subsequent tasks, such as creating the plots and the further analysis, were divided between Fedor and Mats, while Kimia and Nicolas were already working on the scientific poster.
 
 ---
 
