@@ -73,7 +73,7 @@ Tools used were:
 
 - `ChatGPT`
 - `Github Copilot`
--  `Copilot`
+- `Copilot`
 
 The aim of the group was for everyone to implement each function independently so that they could be put together later and any errors made by a member could be corrected. Subsequent tasks, such as creating the plots and the further analysis, were divided between Fedor and Mats, while Kimia and Nicolas were already working on the scientific poster.
 
