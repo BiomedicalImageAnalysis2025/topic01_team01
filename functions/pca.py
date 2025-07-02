@@ -66,7 +66,7 @@ def pca_transform(test_data, projection_matrix, verbose=True):
         test_reduced (ndarray of shape (n_samples, n_components)) : 
             The transformed data in the PCA space.
     """       
-    # Project the test data onto the PCA space using the projection matrix V_reduced
+    # Project the test data onto the PCA space using the projection matrix
     test_reduced = test_data @ projection_matrix.T
 
     if verbose:
