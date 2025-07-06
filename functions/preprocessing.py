@@ -19,8 +19,9 @@ def preprocessing(data_path, seed, train_ratio= 0.7, verbose=True):
 
     Args:
         data_path (str): The path to the directory containing the image files.
-        seed():
-        train_ratio():
+        seed(int): A seed for random number generation to ensure reproducibility.
+        train_ratio(float): The proportion of images to use for training.
+        verbose (bool): If True, prints the number of training and testing images.
 
     Returns:
         final_train (numpy.ndarray): 
@@ -45,7 +46,7 @@ def preprocessing(data_path, seed, train_ratio= 0.7, verbose=True):
             continue
 
         # Extract person’s identifier from the filename.
-        # I our case, the identifier is the first part of the filename before the dot.
+        # In our case, the identifier is the first part of the filename before the dot.
         # [0] splits the string at the dot and takes the first part.
         subject_id = img_file.split(".")[0]
         
@@ -69,7 +70,7 @@ def preprocessing(data_path, seed, train_ratio= 0.7, verbose=True):
             grouped_images[subject_id] = []
         grouped_images[subject_id].append(flat_image)  
 
-    # Set a random seed for reproducibility (output is the same every time).
+    # Set a random seed for reproducibility.
     np.random.seed(seed)
 
     # Prepare separate lists for training and testing images.
@@ -81,9 +82,6 @@ def preprocessing(data_path, seed, train_ratio= 0.7, verbose=True):
 
     # For each individual, randomly assign 8 images to training and 3 to testing.
     for subject, images in grouped_images.items():
-        # Convert list of images to a numpy array for shuffling. 
-        # difference between list and numpay array is that numpy arrays are more optimized for numerical operations.
-        images = np.array(images)
         
         # Shuffle images in-place with NumPy's shuffle.
         # This shuffling is along axis 0, meaning it shuffles the rows (images) randomly within the array.
@@ -103,12 +101,11 @@ def preprocessing(data_path, seed, train_ratio= 0.7, verbose=True):
         # This is used for the KNN classifier later.
         train_labels.extend([subject] * len(subject_train)) 
         #.extend is used to add elements of the list subject_train to train_data individually.
-        #the output is one list, instead of a list of lists.(this would have been the case if we used .append)
+        # the output is one list, instead of a list of lists.(this would have been the case if we used .append)
         test_data.extend(subject_test)
         test_labels.extend([subject] * len(subject_test))
 
     if verbose:
-        # output you see in main.ipynb
         print(f"Total training images: {len(train_data)}")
         print(f"Total testing images: {len(test_data)}")
 

@@ -5,21 +5,28 @@ from PIL import Image
 
 # Function to perform PCA on a dataset of images
 def svd_pca(input_matrix, n_components, verbose=True):
-    """Compute the PCA transformation for the training set dat_matrix using SVD.
+    """
+    Perform Principal Component Analysis (PCA) using Singular Value Decomposition (SVD).
+
+    This function computes the PCA transformation of the input data matrix by applying SVD.
+    It returns the projection matrix, the reduced representation of the input data, and the
+    explained variance ratio of the selected principal components.
 
     Args:
-        input_matrix (ndarray of shape (n_samples, n_features)):
-            Training data.
-        n_components (int) : 
-            Number of principal components to keep.
+        input_matrix (np.ndarray): 
+            A 2D array of shape (n_samples, n_features) representing the input data.
+        n_components (int): 
+            The number of principal components to retain.
+        verbose (bool, optional): 
+            If True, prints the shape of the reduced matrix. Defaults to True.
 
     Returns:
-        projection_matrix (ndarray of shape (n_components, n_features)) : 
-            The PCA projection matrix.
-        train_reduced (ndarray of shape (n_samples, n_components)) : 
-            The reduced training data in the PCA space.
-        explained_variance_ratio (ndarray of shape (n_components,)) : 
-            The variance explained by each principal component.
+        projection_matrix (np.ndarray): 
+            A 2D array of shape (n_components, n_features) representing the PCA projection matrix.
+        train_reduced (np.ndarray): 
+            A 2D array of shape (n_samples, n_components) representing the input data projected into PCA space.
+        explained_variance_ratio (np.ndarray): 
+            A 1D array of shape (n_components,) containing the proportion of variance explained by each component.
     """
     # VT = Contains the right singular vectors (eigenvectors) -> rectangular matrix (A^TA)^T	
     # U = Contains the left singular vectors (eigenvectors) -> rectangular matrix (AA^T)
@@ -49,27 +56,32 @@ def svd_pca(input_matrix, n_components, verbose=True):
 
     # returning reduced data
     if verbose:
-        print(f"\nSuccesfully reduced Matrix from {input_matrix.shape} to {train_reduced.shape}\n")
+        print(f"\nSuccesfully reduced matrix from {input_matrix.shape} to {train_reduced.shape}\n")
         
     return projection_matrix, train_reduced, explained_variance_ratio
 
 def pca_transform(test_data, projection_matrix, verbose=True):
-    """Transform the data matrix using the PCA projection matrix.
+    """
+    Project new data into PCA space using a precomputed projection matrix.
+
+    This function applies the PCA transformation to new data using the projection matrix
+    obtained from a previous PCA fit.
 
     Args:
-        test_data (ndarray of shape (n_samples, n_features)): 
-            The data to be transformed.
-        projection_matrix (ndarray of shape (n_components, n_features)):
-            The PCA projection matrix.
+        test_data (np.ndarray): 
+            A 2D array of shape (n_samples, n_features) representing the data to transform.
+        projection_matrix (np.ndarray): 
+            A 2D array of shape (n_components, n_features) representing the PCA projection matrix.
+        verbose (bool, optional): 
+            If True, prints the shape of the transformed matrix. Defaults to True.
 
     Returns:
-        test_reduced (ndarray of shape (n_samples, n_components)) : 
-            The transformed data in the PCA space.
+        test_reduced (np.ndarray): 
+            A 2D array of shape (n_samples, n_components) representing the transformed data in PCA space.
     """       
-    # Project the test data onto the PCA space using the projection matrix
     test_reduced = test_data @ projection_matrix.T
 
     if verbose:
-        print(f"Succesfully transformed Matrix from {test_data.shape} to {test_reduced.shape}")
+        print(f"Succesfully transformed matrix from {test_data.shape} to {test_reduced.shape}")
 
     return test_reduced

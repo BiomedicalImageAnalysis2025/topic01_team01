@@ -45,7 +45,6 @@ def preprocessing_dataset_B(images, labels, seed, train_ratio, verbose=True):
     test_labels = labels_shuffled[split_index:]
 
     if verbose:
-        # output you see in main.ipynb
         print(f"Total training images: {len(train_data)}")
         print(f"Total testing images: {len(test_data)}")
 
