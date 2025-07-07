@@ -67,6 +67,7 @@ def preprocessing_dataset_B(images, labels, seed, train_ratio, verbose=True):
     # Apply the same transformation to the test set.
     final_test_B = (test_arr - train_mean) / global_std
 
+    # Converts np arrays to lists, where each label is converted to a scalar for KNN classifier. 
     train_labels_B = [train_label.item() if isinstance(train_label, np.ndarray) else train_label for train_label in train_labels]
     test_labels_B = [test_label.item() if isinstance(test_label, np.ndarray) else test_label for test_label in test_labels]
 

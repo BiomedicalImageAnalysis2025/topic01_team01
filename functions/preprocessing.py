@@ -35,6 +35,9 @@ def preprocessing(data_path, seed, train_ratio= 0.7, verbose=True):
         test_arr (numpy.ndarray):
             The original (non-standardized) testing data as a NumPy array.
     """
+    
+    # Set a random seed for reproducibility.
+    np.random.seed(seed)
 
     # Create a dictionary to group images by individual.
     grouped_images = {}
@@ -68,10 +71,7 @@ def preprocessing(data_path, seed, train_ratio= 0.7, verbose=True):
         # This way, we group all images of the same subject together.
         if subject_id not in grouped_images:
             grouped_images[subject_id] = []
-        grouped_images[subject_id].append(flat_image)  
-
-    # Set a random seed for reproducibility.
-    np.random.seed(seed)
+        grouped_images[subject_id].append(flat_image)
 
     # Prepare separate lists for training and testing images.
     train_data = []
